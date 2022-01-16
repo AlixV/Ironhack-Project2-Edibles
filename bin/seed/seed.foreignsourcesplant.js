@@ -14,7 +14,7 @@ const { foreignSourcesPlants } = require('./data.seed');
     // cleaning the collection
     await ForeignSourcesPlantModel.deleteMany();
     // replacing each id by its ObjectId
-    for (item of speciesImages) {
+    for (item of foreignSourcesPlants) {
       if (item.species_id) {
         const ref = await SpeciesModel.findOne({ id: item.species_id});
         if (ref) item.species_objId = ref._id;
