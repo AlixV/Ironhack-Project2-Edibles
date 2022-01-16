@@ -5,7 +5,6 @@ const GenusModel = require('./../../models/Genus');
 const FamilyModel = require('./../../models/Family');
 
 const { genuses } = require('./data.seed');
-const { insertMany } = require('./../../models/Genus');
 
 (async function() {
   try {
