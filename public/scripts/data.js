@@ -12,5 +12,4 @@ if (trek) const points = 150;
 if (plant.isEdible) points += 4;
 if (plant.isToxic) points -= 4;
 if (plant.isLethal) points === 0:
-if (playerHasNotEaten) points -= 3; // we should fix this meccanic because it's actually weird if the player looses point for not eating if the plant was actually toxic...
 

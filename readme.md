@@ -69,4 +69,54 @@ Game app in which the players have to decide whether to eat or not wild plants.
 
 ---
 
+### Models
+
+1. Player:
+
+- username : String, required
+- email : String, required, unique, validation with regex
+- password : String, required
+- avatar : String, default: API call
+- plantsIdentified: {
+  \_id: Schema.Types.ObjectId,
+  ref: "plants",
+  count: Number
+  }
+- recipes: {
+  \_id: Schema.Types.ObjectId,
+  ref: "recipes",
+  }
+- level: String, default: "Naive traveler"(=> comment faire pour que ca soit pas une info que le joueur ne puisse pas éditer lui même ?)
+
+2. Plant:
+
+- commonName: String, required
+- scientificName: String,
+- family: String,
+- geographicalAreas: String,
+- description: String,
+- isEdible: boolean, required
+- isToxic: boolean, required
+- isLethal: boolean, required
+- edible_parts: [String],
+- imageUrl: String, required
+- otherUses: [String]
+
+3. Recipe:
+
+- name: String, required,
+- duration: String, default: 00:00,
+- plants: {
+  \_id: Schema.Types.ObjectId,
+  ref: "plants",
+  }, required
+- otherIngredients: [String]
+- instructions: String, required
+- likes: Number, default:0,
+- images: String
+
+---
+
 ### TO DO
+
+https://trello.com/b/zmfuoL0p/to-do
