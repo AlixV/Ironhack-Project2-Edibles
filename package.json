@@ -5,22 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www -e .js,.hbs",
-    "seed:zone": "node ./bin/seed/seed.zone.js",
-    "seed:foreignsource": "node ./bin/seed/seed.foreignsource.js",
-    "seed:kingdom": "node ./bin/seed/seed.kingdom.js",
-    "seed:subkingdom": "node ./bin/seed/seed.subkingdom.js",
-    "seed:division": "node ./bin/seed/seed.division.js",
-    "seed:divisionclass": "node ./bin/seed/seed.divisionclass.js",
-    "seed:divisionorder": "node ./bin/seed/seed.divisionorder.js",
-    "seed:family": "node ./bin/seed/seed.family.js",
-    "seed:genus": "node ./bin/seed/seed.genus.js",
-    "seed:plant": "node ./bin/seed/seed.plant.js",
-    "seed:species": "node ./bin/seed/seed.species.js",
-    "seed:synonym": "node ./bin/seed/seed.synonym.js",
-    "seed:commonname": "node ./bin/seed/seed.commonname.js",
-    "seed:speciesdistribution": "node ./bin/seed/seed.speciesdistribution.js",
-    "seed:speciesimage": "node ./bin/seed/seed.speciesimage.js",
-    "seed:foreignsourcesplant": "node ./bin/seed/seed.foreignsourcesplant.js"
+    "seed:plant": "node ./bin/seed/seed.plant.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
