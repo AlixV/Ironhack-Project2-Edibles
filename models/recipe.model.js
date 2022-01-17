@@ -20,7 +20,10 @@ const recipeSchema = new Schema({
     type: String,
     required: true,
   },
-  image: String,
+  image: {
+    type: String,
+    default: "./../public/images/pizza-slice.svg",
+  },
   creator: {
     type: Schema.Types.ObjectId,
     ref: "user",

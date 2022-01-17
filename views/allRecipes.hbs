@@ -1,0 +1,27 @@
+<h2>Qu'est ce qu'on mange ce soir ?</h2>
+
+<div>
+    <label for="plant">Choisir une ou plusieurs plantes</label>
+    <select name="plant" id="plant" multiple>
+        {{#each plant}}
+            <option value="{{this._id}}">{{this.commonName}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div>
+   {{!-- clear filter options --}}
+</div>
+
+<div>
+    {{#each recipe}}
+        <div>
+            <p>{{this.name}}</p>
+            <p>{{this.creator}}</p>
+            <p>{{this.duration}}</p>
+            <img src="{{this.image}}" alt="{{this.name}}">
+            <img src="./../public/images/trash-alt.svg" alt="">
+            <img src="./../public/images/pencil.svg" alt="">
+        </div>
+    {{/each}}
+</div>
