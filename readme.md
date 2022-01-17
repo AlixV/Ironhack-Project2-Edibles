@@ -1,6 +1,7 @@
 # Project Edibles
 
-**Description**
+## Description
+
 <br/>
 
 _**Do we add plants that aren't either toxic nor edible ? If so, what ratio per game ?**_
@@ -73,20 +74,29 @@ Game app in which the players have to decide whether to eat or not wild plants.
 
 1. Player:
 
-- username : String, required
+- pseudo : String, required
 - email : String, required, unique, validation with regex
 - password : String, required
-- avatar : String, default: API call
-- plantsIdentified: {
-  \_id: Schema.Types.ObjectId,
-  ref: "plants",
-  count: Number
+- avatar : String, default: ("/public")
+- plantsIdentified: [
+  {plant:
+  {
+  type: Schema.Types.ObjectId,
+  ref: "plant",
+  },
+  count: Number,
   }
-- recipes: {
-  \_id: Schema.Types.ObjectId,
-  ref: "recipes",
-  }
-- level: String, default: "Naive traveler"(=> comment faire pour que ca soit pas une info que le joueur ne puisse pas éditer lui même ?)
+  ]
+- recipes: [{
+  recipe: {
+  type: Schema.Types.ObjectId,
+  ref: "recipe",
+  }, favorite:
+  {type: boolean,
+  default: false}
+  }]
+- level: String, default: "Marcheur naïf", editable = false
+- en option => choisir sa zone géographique pour carte collaborative entre joueurs de la même zone
 
 2. Plant:
 
@@ -105,15 +115,19 @@ Game app in which the players have to decide whether to eat or not wild plants.
 3. Recipe:
 
 - name: String, required,
-- duration: String, default: 00:00,
-- plants: {
-  \_id: Schema.Types.ObjectId,
+- duration-minutes: Number, required,
+- plants: [{
+  type: Schema.Types.ObjectId,
   ref: "plants",
-  }, required
+  }, required]
 - otherIngredients: [String]
 - instructions: String, required
-- likes: Number, default:0,
 - images: String
+- creator: {
+  type: Schama.Types.ObjectId,
+  ref: "users"
+  }
+- en option => likes: Number, default:0,
 
 ---
 
