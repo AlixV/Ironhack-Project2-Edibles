@@ -14,14 +14,20 @@
 </div>
 
 <div>
+    <h3>Ajouter une nouvelle recette</h3>
+    <a href="/recipe/addRecipe"><img src="/images/cauldron.svg" alt="addarecipe-icon"></a>
+</div>
+
+<div>
     {{#each recipe}}
         <div>
-            <p>{{this.name}}</p>
+            <h4>{{this.name}}</h4>
             <p>{{this.creator}}</p>
             <p>{{this.duration}}</p>
             <img src="{{this.image}}" alt="{{this.name}}">
-            <img src="./../public/images/trash-alt.svg" alt="">
-            <img src="./../public/images/pencil.svg" alt="">
+            <img src="/images/trash-alt.svg" alt="trash-icon">
+            <img src="/images/pencil.svg" alt="edit-icon">
+            <img src="/images/heart.svg" alt="addtofavorite-icon">
         </div>
     {{/each}}
 </div>
