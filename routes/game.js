@@ -12,10 +12,9 @@ const dataGame = require("./../helpers/dataGame");
 const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
 
 // getting helpers
-const isGameActionAuthorized = require('./../helpers/isGameActionAuthorized');
-const getImpactFromAction = require('../helpers/getImpactFromAction');
-const getShuffledCardsObjectArray = require('../helpers/getShuffledCardsObjectArray');
-
+const isGameActionAuthorized = require("./../helpers/isGameActionAuthorized");
+const getImpactFromAction = require("../helpers/getImpactFromAction");
+const getShuffledCardsObjectArray = require("../helpers/getShuffledCardsObjectArray");
 
 // all game-related routes
 /* -------------------------------------------------------- */
@@ -29,11 +28,11 @@ router.get("/", (req, res, next) => {
     balade: dataGame.MODE_BALADE,
     rando: dataGame.MODE_RANDO,
     trek: dataGame.MODE_TREK,
-  }
+  };
   // set indexPlant in req.session
   req.session.indexPlant = null;
   // render game home screen (mode choice)
-  res.render("gameHome", { links, css: [ "game.css" ] });
+  res.render("gameHome", { links, css: ["game.css"] });
 });
 
 // - to display the game rules (!!! NOT TO BE PROTECTED)
@@ -85,13 +84,13 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
       backgrounds = dataGame.TREK_BCKGD;
       break;
   }
-  
+
   // random selection of plants to fill the array of cardsToPlay * numOfCards
   cardsToPlay = getShuffledCardsObjectArray(numOfCards);
 
   // Store the array (of plants' id) in Session
   req.session.cardsToPlay = cardsToPlay;
-  
+
   // start the game mechanic : display one card and set plantIndex for next turn
   try {
     if (gameplay.action === "begin") {
@@ -102,31 +101,32 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
       gameplay.cards = numOfCards;
       console.log("numOfCards :>> ", numOfCards);
       console.log("numOfPoints :>> ", numOfPoints);
-    
+
       // set the indexPlant to 0 to start the game
       req.session.indexPlant = 0;
 
       // find in DB the first card in the array
       currentPlant = await PlantModel.findById(
-      cardsToPlay[req.session.indexPlant].plantId
+        cardsToPlay[req.session.indexPlant].plantId
       );
       // implement the background changing logic
       currentBackground =
-      backgrounds[Math.ceiling(Math.random() * backgrounds.length)];
-      
+        backgrounds[Math.ceiling(Math.random() * backgrounds.length)];
+
       // passer dans la view le background et la plante à afficher (photo + commonName + isEdible, isToxic, isLethal)
       res.render("gameMode", { gameplay, currentBackground, currentPlant });
-    }
-    else {
+    } else {
       // isActionAuthorized
       const isActionOk = isGameActionAuthorized(gameplay.action);
-      
+
       if (isActionOk) {
         // action eat or leave
 
         // get plant info
-        currentPlant = await PlantModel.findById(cardsToPlay[req.session.indexPlant].plantId);
-        
+        currentPlant = await PlantModel.findById(
+          cardsToPlay[req.session.indexPlant].plantId
+        );
+
         // get lifeImpact from action (action vs plant)
         const impact = getImpactFromAction(gameplay.action, currentPlant);
         // update lifebar
@@ -136,52 +136,51 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
 
         // game  update
         // - store couple (plant, resultOK or resultNok) ==> session
-      }  
+      }
 
-//// PARTIE EN COURS DE TRAVAIL - DEBUT
+      //// PARTIE EN COURS DE TRAVAIL - DEBUT
 
-// 1 savoir si choix ok
+      // 1 savoir si choix ok
 
-// increment the indexPlant
-console.log(
-  "req.session.indexPlant before incrementation :>> ",
-  req.session.indexPlant
-  );
-  req.session.indexPlant++;
-  console.log(
-    "req.session.indexPlant after incrementation :>> ",
-    req.session.indexPlant
-    );
-    
-    
-    if (req.session.indexPlant < numOfCards) {
-      currentPlant = await PlantModel.findById(
-        cardsToPlay[req.session.indexPlant].plantId
+      // increment the indexPlant
+      console.log(
+        "req.session.indexPlant before incrementation :>> ",
+        req.session.indexPlant
+      );
+      req.session.indexPlant++;
+      console.log(
+        "req.session.indexPlant after incrementation :>> ",
+        req.session.indexPlant
+      );
+
+      if (req.session.indexPlant < numOfCards) {
+        currentPlant = await PlantModel.findById(
+          cardsToPlay[req.session.indexPlant].plantId
         );
         // implement the background changing logic
         currentBackground =
-        backgrounds[Math.ceiling(Math.random() * backgrounds.length)];
-        
+          backgrounds[Math.ceiling(Math.random() * backgrounds.length)];
+
         // increment the indexPlant
         console.log(
           "req.session.indexPlant before incrementation :>> ",
           req.session.indexPlant
-          );
-          req.session.indexPlant++;
-          console.log(
-            "req.session.indexPlant after incrementation :>> ",
-            req.session.indexPlant
-            );
-            
-//// PARTIE EN COURS DE TRAVAIL - END
-            
-            // passer dans la view le background et la plante à afficher (photo + commonName + isEdible, isToxic, isLethal)
-            res.render("gameMode", { gameplay, currentBackground, currentPlant });
-          } // if there are no more cards to play
-          else {
-            res.render("gameEnd", { gameplay });
-          }
-        }
+        );
+        req.session.indexPlant++;
+        console.log(
+          "req.session.indexPlant after incrementation :>> ",
+          req.session.indexPlant
+        );
+
+        //// PARTIE EN COURS DE TRAVAIL - END
+
+        // passer dans la view le background et la plante à afficher (photo + commonName + isEdible, isToxic, isLethal)
+        res.render("gameMode", { gameplay, currentBackground, currentPlant });
+      } // if there are no more cards to play
+      else {
+        res.render("gameEnd", { gameplay });
+      }
+    }
   } catch (error) {
     next(error);
   }

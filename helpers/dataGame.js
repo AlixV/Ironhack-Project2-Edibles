@@ -14,14 +14,13 @@ const dataGame = {
   MSG_SUCCESS_END_EDIBLE: ") est comestible.",
   MSG_SUCCESS_END_TOXIC: ") est toxique.",
   MSG_SUCCESS_END_LETHAL: ") est mortelle.",
-  
+
   MSG_FAILURE_BEGINNING: "Dommage! Cette plante (",
   MSG_FAILURE_END_EDIBLE: ") est comestible.",
   MSG_FAILURE_END_TOXIC: ") est toxique.",
 
   MSG_OOPS_BEGINNING: "Oops! Cette plante (",
   MSG_OOPS_END_LETHAL: ") est mortelle. Bye bye!",
-
 
   // cardsToPlay
   BALADE_NB_CARDS: 15,
