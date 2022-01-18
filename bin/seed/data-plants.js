@@ -1413,7 +1413,7 @@
     isLethal: false,
     edible_parts: ["fleurs", "têtes fleuries"],
     imageUrl:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.aujardin.info%2Fplantes%2Flamium-purpureum.php&psig=AOvVaw3DbbV2cEl11R3CzxYD0B2y&ust=1642452283780000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJCr5tmRt_UCFQAAAAAdAAAAABAD",
+      "https://upload.wikimedia.org/wikipedia/commons/3/33/Red_Dead-nettle_%28Lamium_purpurium%29_%283356934248%29.jpg",
     otherUses: "",
   },
   {
