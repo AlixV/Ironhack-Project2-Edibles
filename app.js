@@ -60,6 +60,14 @@ app.use('/', authRouter);
 // const playerRouter = require('./routes/player');
 // app.use('/player', playerRouter);
 
+// - game routes
+const gameRouter = require('./routes/game');
+app.use('/game', gameRouter);
+
+// - plant routes
+const plantRouter = require('./routes/plant');
+app.use('/plant', plantRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

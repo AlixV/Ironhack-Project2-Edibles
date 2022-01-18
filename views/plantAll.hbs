@@ -1,0 +1,10 @@
+<h2>Plantes</h2>
+
+<div id="plants">
+  {{#each plants}}
+  <div id="card">
+    <div><img src="{{this.imageUrl}}" alt="{{this.commonName}}" class="plant-img"></div>
+    <div><img src="/images/icons/thumbs-up.svg" alt="success" class="icon"></div>
+  </div>
+  {{/each}}
+</div>
