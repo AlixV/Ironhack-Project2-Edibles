@@ -1,7 +1,7 @@
 require("dotenv").config();
-require("./../../config/mongodb");
+require("../../config/mongodb");
 const mongoose = require("mongoose");
-const PlayerModel = require("./../../models/Player.model");
+const PlayerModel = require("../../models/Player.model");
 
 const testPlayers = [
   {
@@ -11,16 +11,16 @@ const testPlayers = [
     avatar: "",
     plantsIdentified: [
       {
-        plant: mongoose.Types.ObjectId("61e5761ab334384963302892"),
-        counter: 3,
+        plant: mongoose.Types.ObjectId("61e67870bb0a0afd6b66b8d0"),
+        count: 3,
       },
       {
-        plant: mongoose.Types.ObjectId("61e5761ab334384963302894"),
-        counter: 2,
+        plant: mongoose.Types.ObjectId("61e67870bb0a0afd6b66b8d1"),
+        count: 2,
       },
       {
-        plant: mongoose.Types.ObjectId("61e5761ab3343849633028a2"),
-        counter: 4,
+        plant: mongoose.Types.ObjectId("61e67870bb0a0afd6b66b8d2"),
+        count: 4,
       },
     ],
     recipes: [],
@@ -34,15 +34,15 @@ const testPlayers = [
     plantsIdentified: [
       {
         plant: mongoose.Types.ObjectId("61e5761ab334384963302891"),
-        counter: 3,
+        count: 3,
       },
       {
         plant: mongoose.Types.ObjectId("61e5761ab334384963302898"),
-        counter: 2,
+        count: 2,
       },
       {
         plant: mongoose.Types.ObjectId("61e5761ab33438496330289e"),
-        counter: 4,
+        count: 4,
       },
     ],
     recipes: [],
@@ -56,15 +56,15 @@ const testPlayers = [
     plantsIdentified: [
       {
         plant: mongoose.Types.ObjectId("61e5761ab33438496330289d"),
-        counter: 3,
+        count: 3,
       },
       {
         plant: mongoose.Types.ObjectId("61e5761ab3343849633028a1"),
-        counter: 2,
+        count: 2,
       },
       {
         plant: mongoose.Types.ObjectId("61e5761ab33438496330289e"),
-        counter: 4,
+        count: 4,
       },
     ],
     recipes: [],

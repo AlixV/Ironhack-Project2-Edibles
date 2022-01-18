@@ -1,0 +1,38 @@
+<div>
+    <h2>Ajoutez une nouvelle recette</h2>
+</div>
+
+<div>
+    <form action="/recipes/addRecipe" method="post" enctype="multipart/form-data">
+        <label for="name">Nom de la recette</label>
+        <input type="text" id="name" name="name">
+        
+        <label for="prepTime">Durée de préparation</label>
+        <input type="number" id="prepTime" name="durationMinutes">
+        
+        <label for="plant">Plante comestible</label>
+        <select name="plant" id="plant" multiple>
+            {{#each plants}}
+                <option value="{{this._id}}">{{this.commonName}}</option>
+            {{/each}}
+        </select>
+
+        <label for="otherIngredients">Autres ingrédients</label>
+        <input type="text" id="otherIngredients" name="otherIngredients">
+        {{!-- add button to ad new ingredient and clear input field --}}
+        {{!-- addeventlistener on BTN => axios post to add the input value a list below--}}
+        <button id="add-new-ingredient"></button>
+        <ul id="new-ingredients-list"></ul>
+        
+        <label for="instructions">Instructions</label>
+        <input type="text" id="instructions" name="instructions" size="60">
+
+        <label for="image">Télécharger une image</label>
+        <input type="file" id="image" name="image">
+
+        <button type="submit">Créer la recette</button>
+       
+       {{!-- Go back to where the player came from => either dashboard or /recipes --}}
+        <a href="">Annuler</a>
+    </form>
+</div>

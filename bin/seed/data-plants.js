@@ -348,8 +348,8 @@
     geographicalAreas: "France",
     description:
       "La taille de cet arbuste ou arbrisseau peut varier de 4 à 10 mètres de hauteur. Les feuilles sont des aiguilles persistantes verticillées par trois, très piquantes, qui présentent une carène sur la face supérieure et une épaisse bande blanche de stomates sur la face inférieure.",
-    isEdible: true,
-    isToxic: false,
+    isEdible: false,
+    isToxic: true,
     isLethal: false,
     edible_parts: ["cônes", "fruits"],
     imageUrl:

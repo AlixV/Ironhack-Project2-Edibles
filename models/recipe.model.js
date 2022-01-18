@@ -1,24 +1,25 @@
-const { model, Schema, trusted } = require("mongoose");
+const { model, Schema } = require("mongoose");
+
+// commented out the "required" bec of a bug that needs to be fixed !!
 
 const recipeSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   durationMinutes: {
     type: Number,
-    required: true,
+    // required: true,
   },
-  plants: [
-    {
-      plant: { type: Schema.Types.ObjectId, ref: "plant" },
-      required: true,
-    },
-  ],
+  plant: {
+    type: Schema.Types.ObjectId,
+    ref: "plant",
+    //   required: true,
+  },
   otherIngredients: [String],
   instructions: {
     type: String,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,
@@ -26,9 +27,12 @@ const recipeSchema = new Schema({
   },
   creator: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "player",
   },
-  likes: Number,
+  likes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const RecipeModel = model("recipe", recipeSchema);

@@ -1,33 +1,38 @@
+{{!-- Display all recipes available to the player --}}
+
 <h2>Qu'est ce qu'on mange ce soir ?</h2>
 
+{{!-- filter available recipes by plant --}}
 <div>
-    <label for="plant">Choisir une ou plusieurs plantes</label>
-    <select name="plant" id="plant" multiple>
-        {{#each plant}}
-            <option value="{{this._id}}">{{this.commonName}}</option>
+    <label for="plant">Choisir une plante</label>
+    <select name="plant" id="plant">
+        {{#each recipe}}
+            <option value="{{this.plant._id}}">{{this.plant.commonName}}</option>
         {{/each}}
     </select>
 </div>
 
-<div>
-   {{!-- clear filter options --}}
-</div>
-
+{{!-- add a new recipe --}}
 <div>
     <h3>Ajouter une nouvelle recette</h3>
-    <a href="/recipe/addRecipe"><img src="/images/cauldron.svg" alt="addarecipe-icon"></a>
+    <a href="/recipes/addRecipe">"Add" icon here</a>
+    {{!-- <img src="/images/icons/cauldron.svg" alt="addarecipe-icon"> --}}
 </div>
 
+{{!-- list of recipes --}}
 <div>
     {{#each recipe}}
         <div>
-            <h4>{{this.name}}</h4>
-            <p>{{this.creator}}</p>
-            <p>{{this.duration}}</p>
+            <a href="/recipes/one/{{this._id}}">
+                <h4>{{this.name}}</h4>
+            </a>
+            <p>Durée: {{this.durationMinutes}}</p>
             <img src="{{this.image}}" alt="{{this.name}}">
-            <img src="/images/trash-alt.svg" alt="trash-icon">
-            <img src="/images/pencil.svg" alt="edit-icon">
-            <img src="/images/heart.svg" alt="addtofavorite-icon">
+            <a href="/recipes/delete/{{this._id}}">"Delete" icon here</a>
+            {{!-- <img src="/images/icons/trash-alt.svg" alt="trash-icon"> --}}
+            <a href="/recipes/edit/{{this._id}}">"Edit" icon here</a>
+            {{!-- <img src="/images/icons/pencil.svg" alt="edit-icon"> --}}
+            <p>Auteur: {{this.creator.pseudo}}</p>
         </div>
     {{/each}}
 </div>

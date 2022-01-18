@@ -1,0 +1,31 @@
+{{!-- Display the details of a recipe --}}
+<div>
+    <h2>{{recipe.name}}</h2> 
+    <a href="/recipes/delete/{{recipe._id}}">"DELETE" icon</a>
+    {{!-- <img src="/images/icons/trash-alt.svg" alt="trash-icon"> --}}
+    <a href="/recipes/edit/{{recipe._id}}">"EDIT" icon</a>
+    {{!-- <img src="/images/icons/pencil.svg" alt="edit-icon"> --}}
+    <img src="{{recipe.image}}" alt="">
+</div>
+
+<div>
+    <p>Recette ajoutée par {{recipe.creator.pseudo}}</p>
+    <p>Durée: {{recipe.durationMinutes}} minutes</p>
+</div>
+
+<div>
+    <h4>Ingrédients</h4>
+    <ul>
+        <li>{{recipe.plant.commonName}}</li>
+        {{#each recipe.otherIngredients}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</div>  
+
+<div>
+    <h4>Préparation</h4>
+    <p>{{recipe.instructions}}</p>
+    <p>Bon appétit !</p>
+</div>
+

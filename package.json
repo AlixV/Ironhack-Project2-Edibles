@@ -6,14 +6,17 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www -e .js,.hbs",
     "seed:plant": "node ./bin/seed/seed.plant.js",
-    "seed:player": "node ./bin/seed/seed.player.js"
+    "seed:player": "node ./bin/seed/seed.player.js",
+    "seed:recipes": "node ./bin/seed/seed.recipe.js"
   },
   "dependencies": {
     "cloudinary": "^1.28.1",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^12.0.4",
     "express": "~4.16.1",
+    "express-session": "^1.17.2",
     "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
     "mongoose": "^6.1.6",
