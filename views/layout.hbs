@@ -3,6 +3,11 @@
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{#if css}}
+      {{#each css}}
+      <link rel="stylesheet" href="/stylesheets/{{this}}">
+      {{/each}}
+    {{/if}}
   </head>
   <body>
     {{{body}}}
