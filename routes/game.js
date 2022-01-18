@@ -70,6 +70,9 @@ router.get("/:modeId", protectPrivateRoute, async (req, res, next) => {
       break;
   }
 
+  gameplay.life = numOfPoints;
+  gameplay.cards = numOfCards;
+
   console.log("numOfCards :>> ", numOfCards);
   console.log("numOfPoints :>> ", numOfPoints);
 
