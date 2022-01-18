@@ -1,0 +1,25 @@
+/* CSS for GAME VIEWS */
+
+/* START SCREEN */
+#game-home a {
+  color: black;
+  /* text-decoration: none; */
+}
+
+
+/* PLAYING SCREEN */
+#game-play img {
+  height: 25rem;
+  width: 25rem;
+  object-fit: cover;
+}
+
+
+/* END SCREEN */
+#game-end img {
+  height: 15rem;
+  width: 15rem;
+  object-fit: cover;
+}
+
+

@@ -20,7 +20,7 @@ const protectPrivateRoute = require('../middlewares/protectPrivateRoute');
 
 // - to display the game home page (!!! NOT TO BE PROTECTED)
 router.get('/', (req, res, next) => {
-  res.render('gameHome');
+  res.render('gameHome', { text: "test", css: ["game.css"] });
 });
 
 // - to display the game rules (!!! NOT TO BE PROTECTED)
@@ -30,14 +30,14 @@ router.get('/rules', (req, res, next) => {
     randoNbCards: dataGame.RANDO_NB_CARDS,
     trekNbCards: dataGame.TREK_NB_CARDS,
   };
-  // console.log("rulesInfo :", rulesInfo)
- console.log("dataGame :", dataGame.BALADE_NB_CARDS)
-
-  res.render('gameRules',  {rulesInfo} );
+  res.render('gameRules', { rulesInfo, css: "game.css" });
 });
 
 // - to display the game intro (option: to present a fake itinerary)
-router.get('/:mode/intro', protectPrivateRoute, (req, res, next) => {
+router.get('/:modeId/intro', protectPrivateRoute, (req, res, next) => {
+  const gameplay = {
+    mode: req.params.modeId,
+  };
   res.render('gameIntro');
 });
 

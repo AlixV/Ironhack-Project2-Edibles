@@ -34,6 +34,7 @@ router.post("/signup", async (req, res, next) => {
          const foundPlayer = await PlayerModel.findOne({email : newPlayer.email})
          console.log('foundPlayer', foundPlayer);
          if(foundPlayer){
+             console.log('---- player found in db')
              req.flash("error", "Email déjà enregistré");
              res.redirect("/signin");
          }else{

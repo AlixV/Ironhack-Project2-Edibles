@@ -35,23 +35,6 @@ app.use(
 app.use(flash());
 
 // CUSTOM MIDDELWARES
-
-app.use(require("./middlewares/exposeLoginStatus")); // expose le status de connexion aux templates
-app.use(require("./middlewares/exposeFlashMessage")); // affiche les messages dans le template
-
-
-app.use(
-	session({
-		secret:
-			process.env.SESSION_SECRET || "ASecretStringThatSouldBeHARDTOGUESS/CRACK",
-		saveUninitialized: true,
-		resave: true,
-	})
-);
-
-app.use(flash());
-
-// CUSTOM MIDDELWARES
 app.use(require("./middlewares/exposeLoginStatus")); // expose le status de connexion aux templates
 app.use(require("./middlewares/exposeFlashMessage")); // affiche les messages dans le template
 
