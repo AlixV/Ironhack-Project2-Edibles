@@ -4,7 +4,7 @@ const router = require("express").Router();
 const PlayerModel = require("./../models/Player.model");
 const bcrypt = require("bcrypt"); 
 const protectAuthRoute = require("../middlewares/protectAuthRoute");
-// => Alix aller créer midddelewares DONE
+const protectPrivateRoute = require("../middlewares/protectPrivateRoute")
 
 // - Display the SIGNUP FORM  Ensuite add protectAuthRoute 
 router.get("/signup", protectAuthRoute,  (req, res) => {
@@ -35,7 +35,7 @@ router.post("/signup", async (req, res, next) => {
          console.log('foundPlayer', foundPlayer);
          if(foundPlayer){
              req.flash("error", "Email déjà enregistré");
-             res.redirect("/signup");
+             res.redirect("/signin");
          }else{
              // HASH + SALT the password !!
              const hashedPwd = bcrypt.hashSync(newPlayer.password, 10);
@@ -51,7 +51,7 @@ router.post("/signup", async (req, res, next) => {
      // handling errors on form fields
     // console.log("signup - error: ", error);
     let errorMessage ="";
-    for(field in error.errors) { //voir "errors" Alix
+    for(field in error.errors) { 
         errorMessage += error.errors[field].message +"\n"
     }
     req.flash("error", errorMessage); // affiche toutes erreurs
@@ -68,7 +68,7 @@ router.post("/signin", async (req, res, next) => {
         // check if all mandatory fields are present :
         if (!email || !password){ // Pourquoi "||" et non "&&" ?
             req.flash("error", "Veuillez renseigner tous les champs")
-            res.redirect("/signup");
+            res.redirect("/signin");
         } else {
           // find the player in db :
           const foundPlayer = await PlayerModel.findOne({email : email});
@@ -93,9 +93,10 @@ router.post("/signin", async (req, res, next) => {
                    delete foundPlayerObjet.password;
                    // create the currentPlayer in session :
                    req.session.currentUser = foundPlayerObjet;
+                   console.log(req.session.currentUser)
                    // display success message & redirect
                    req.flash("sucess", "Connection réussie !");
-                   res.redirect("/dashboard") // ROUTE À VÉRIFIER
+                   res.redirect("/") // ROUTE À VÉRIFIER
                 }
             } 
         }
@@ -112,11 +113,10 @@ router.post("/signin", async (req, res, next) => {
 })
 
 // LOG OUT
-router.get("/logout", (req, res, next) =>{
+router.get("/logout", protectPrivateRoute, (req, res, next) =>{
     console.log(req.session.currentUser);
     req.session.destroy(function (err) {
     // cannot access session here anymore
-    console.log(req.session.currentUser);
     res.redirect("/signin");  
     });
 });
