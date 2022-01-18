@@ -16,4 +16,4 @@ const dataGame = {
 };
 
 
-module.exports = { dataGame };
+module.exports = dataGame;

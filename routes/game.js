@@ -27,9 +27,13 @@ router.get('/', (req, res, next) => {
 router.get('/rules', (req, res, next) => {
   const rulesInfo = {
     baladeNbCards: dataGame.BALADE_NB_CARDS,
-    /// etc.
+    randoNbCards: dataGame.RANDO_NB_CARDS,
+    trekNbCards: dataGame.TREK_NB_CARDS,
   };
-  res.render('gameRules', { rulesInfo });
+  // console.log("rulesInfo :", rulesInfo)
+ console.log("dataGame :", dataGame.BALADE_NB_CARDS)
+
+  res.render('gameRules',  {rulesInfo} );
 });
 
 // - to display the game intro (option: to present a fake itinerary)
