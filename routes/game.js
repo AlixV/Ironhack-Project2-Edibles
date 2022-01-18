@@ -92,11 +92,19 @@ router.get("/:modeId", protectPrivateRoute, async (req, res, next) => {
       currentBackground =
         backgrounds[Math.ceiling(Math.random() * backgrounds.length)];
 
+      // increment the indexPlant
+      console.log(
+        "req.session.indexPlant before incrementation :>> ",
+        req.session.indexPlant
+      );
+      req.session.indexPlant++;
+      console.log(
+        "req.session.indexPlant after incrementation :>> ",
+        req.session.indexPlant
+      );
+
       // passer dans la view le background et la plante à afficher (photo + commonName + isEdible, isToxic, isLethal)
       res.render("gameMode", { gameplay, currentBackground, currentPlant });
-
-      // increment the indexPlant
-      req.session.indexPlant++;
     } // while there are still cards to play
     else if (req.session.indexPlant < numOfCards) {
       currentPlant = await PlantModel.findById(
@@ -106,14 +114,22 @@ router.get("/:modeId", protectPrivateRoute, async (req, res, next) => {
       currentBackground =
         backgrounds[Math.ceiling(Math.random() * backgrounds.length)];
 
+      // increment the indexPlant
+      console.log(
+        "req.session.indexPlant before incrementation :>> ",
+        req.session.indexPlant
+      );
+      req.session.indexPlant++;
+      console.log(
+        "req.session.indexPlant after incrementation :>> ",
+        req.session.indexPlant
+      );
+
       // passer dans la view le background et la plante à afficher (photo + commonName + isEdible, isToxic, isLethal)
       res.render("gameMode", { gameplay, currentBackground, currentPlant });
-
-      // increment the indexPlant
-      req.session.indexPlant++;
     } // if there are no more cards to play
     else {
-      res.redirect("/game/:modeId/end");
+      res.render("gameEnd", { gameplay });
     }
   } catch (error) {
     next(error);
