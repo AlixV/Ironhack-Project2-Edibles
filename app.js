@@ -38,7 +38,7 @@ app.use(flash());
 app.use(require("./middlewares/exposeLoginStatus")); // expose le status de connexion aux templates
 app.use(require("./middlewares/exposeFlashMessage")); // affiche les messages dans le template
 
-// all routers
+// ALL ROUTERS
 // - index routes
 const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
@@ -54,9 +54,9 @@ app.use("/recipes", recipesRouter);
 const authRouter = require('./routes/auth');
 app.use('/', authRouter);
 
-// - dashboard routes
-// const playerRouter = require('./routes/player');
-// app.use('/player', playerRouter);
+// - player routes
+const playerRouter = require('./routes/player');
+app.use('/player', playerRouter);
 
 // - game routes
 const gameRouter = require('./routes/game');

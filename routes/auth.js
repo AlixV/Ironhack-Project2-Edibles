@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const protectAuthRoute = require("../middlewares/protectAuthRoute");
 const protectPrivateRoute = require("../middlewares/protectPrivateRoute")
 
-// - Display the SIGNUP FORM  Ensuite add protectAuthRoute 
+// - Display the SIGNUP FORM  
 router.get("/signup", protectAuthRoute,  (req, res) => {
     res.render("signup.hbs");
 });
@@ -16,7 +16,7 @@ router.get("/signup", protectAuthRoute,  (req, res) => {
 router.get("/signin", protectAuthRoute, (req, res) => {
     res.render("signin.hbs")
 })
-// => Alix aller créer signin + signup forms dans Views hbs DONE
+
 
 // // - REGISTER NEW PLAYER
 router.post("/signup", async (req, res, next) => {
