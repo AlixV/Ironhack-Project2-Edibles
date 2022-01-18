@@ -1,1 +1,18 @@
 <h2>Game Mode (déroulement du jeu)</h2>
+
+<div id="mode-lifebar">
+  <div>
+    <p class="game-mode">{{gameplay.mode}}</p>
+  </div>
+  {{> lifebar}}
+</div>
+
+<div id="play-zone" style="background-image: url({{currentBackground}})">
+  <div id="card">
+    <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?">
+    <div>
+      <a href="/game/{{gameplay.mode}}/eat">Mange-moi</a>
+      <a href="/game/{{gameplay.mode}}/leave">Jette-moi</a>
+    </div>
+  </div>
+</div>

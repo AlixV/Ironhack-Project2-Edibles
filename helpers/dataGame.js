@@ -4,6 +4,25 @@ const dataGame = {
   MODE_RANDO: "rando",
   MODE_TREK: "trek",
 
+  // action
+  ACTION_BEGIN: "begin",
+  ACTION_EAT: "eat",
+  ACTION_LEAVE: "leave",
+
+  // messages after action
+  MSG_SUCCESS_BEGINNING: "Bravo! Cette plante (",
+  MSG_SUCCESS_END_EDIBLE: ") est comestible.",
+  MSG_SUCCESS_END_TOXIC: ") est toxique.",
+  MSG_SUCCESS_END_LETHAL: ") est mortelle.",
+  
+  MSG_FAILURE_BEGINNING: "Dommage! Cette plante (",
+  MSG_FAILURE_END_EDIBLE: ") est comestible.",
+  MSG_FAILURE_END_TOXIC: ") est toxique.",
+
+  MSG_OOPS_BEGINNING: "Oops! Cette plante (",
+  MSG_OOPS_END_LETHAL: ") est mortelle. Bye bye!",
+
+
   // cardsToPlay
   BALADE_NB_CARDS: 15,
   RANDO_NB_CARDS: 30,
@@ -58,9 +77,12 @@ const dataGame = {
   ],
 
   // points count during the game
-  EFFECT_PLANT_EDIBLE: 4,
-  EFFECT_PLANT_TOXIC: -4,
-  EFFECT_PLANT_LETHAL: -150,
+  EFFECT_EAT_PLANT_EDIBLE: 4,
+  EFFECT_EAT_PLANT_TOXIC: -4,
+  EFFECT_EAT_PLANT_LETHAL: -150,
+  EFFECT_LEAVE_PLANT_EDIBLE: -1,
+  EFFECT_LEAVE_PLANT_TOXIC: 1,
+  EFFECT_LEAVE_PLANT_LETHAL: 2,
 };
 
 module.exports = dataGame;
