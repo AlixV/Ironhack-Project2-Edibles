@@ -4,12 +4,12 @@
     <input type="text" id="name" name="name" value="{{recipe.name}}">
     
     <label for="durationMinutes">Durée (en minutes)</label>
-    <input type="number" id="durationMinutes" name="durationMinutes" value="{{this.durationMinutes}}">
+    <input type="number" id="durationMinutes" name="durationMinutes" value="{{recipe.durationMinutes}}">
     
     <label for="plant">Plante identifiée</label>
     <select name="plant" id="plant">
-        {{#each recipe.plant}}
-        <option value="plant">{{recipe.plant.commonName}}</option>
+        {{#each plants}}
+        <option value="plant">{{this.commonName}}</option>
         {{/each}}
     </select>
 
@@ -19,7 +19,7 @@
     {{/each}}
 
     <label for="instructions">Instructions</label>
-    <input type="text" id="instructions" name="instructions" value="instructions">
+    <input type="text" id="instructions" name="instructions" value="{{recipe.instructions}}">
     
     <label for="image">Téléchargez une nouvelle image</label>
     <input type="file" id="image" name="image">

@@ -1,5 +1,10 @@
 # Project Edibles
 
+## Rules
+
+Bienvenu vaillant randonneur !
+Tu vas partir sur les sentiers
+
 ## Description
 
 <br/>

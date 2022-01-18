@@ -11,15 +11,15 @@ const testPlayers = [
     avatar: "",
     plantsIdentified: [
       {
-        plant: mongoose.Types.ObjectId("61e67870bb0a0afd6b66b8d0"),
+        plant: mongoose.Types.ObjectId("61e67f91262207caeba98cc2"),
         count: 3,
       },
       {
-        plant: mongoose.Types.ObjectId("61e67870bb0a0afd6b66b8d1"),
+        plant: mongoose.Types.ObjectId("61e67f91262207caeba98cc3"),
         count: 2,
       },
       {
-        plant: mongoose.Types.ObjectId("61e67870bb0a0afd6b66b8d2"),
+        plant: mongoose.Types.ObjectId("61e67f91262207caeba98cc4"),
         count: 4,
       },
     ],
