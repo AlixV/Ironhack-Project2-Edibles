@@ -18,41 +18,40 @@ router.get("/signin", protectAuthRoute, (req, res) => {
 
 // // - REGISTER NEW PLAYER
 router.post("/signup", async (req, res, next) => {
-  try {
-    // get the player's input :
-    const newPlayer = { ...req.body };
-    // check if all mandatory fields are present :
-    if (!newPlayer.pseudo || !newPlayer.email || !newPlayer.password) {
-      req.flash("error", "Veuillez renseigner tous les champs"); // => Alix Créer Flash DONE
-      res.redirect("/signup");
-    } else {
-      // check if email exists in db :
-      const foundPlayer = await PlayerModel.findOne({ email: newPlayer.email });
-      console.log("foundPlayer", foundPlayer);
-      if (foundPlayer) {
-        console.log("---- player found in db");
-        req.flash("error", "Email déjà enregistré");
-        res.redirect("/signin");
-      } else {
-        // HASH + SALT the password !!
-        const hashedPwd = bcrypt.hashSync(newPlayer.password, 10);
-        newPlayer.password = hashedPwd; // pourquoi 2 fois ? Alix
-        console.log(`hashedPwd`, hashedPwd);
-        // Create new player un db :
-        await PlayerModel.create(newPlayer);
-        req.flash(
-          "sucess",
-          "Félicitations ! Vous êtes enregistré ! Connectez-vous s'il vous plaît."
-        );
-        res.redirect("/signin");
-      }
-    }
-  } catch (error) {
-    // handling errors on form fields
+ try {
+     // get the player's input : 
+     const newPlayer = { ...req.body };
+     // check if all mandatory fields are present :
+     if (!newPlayer.pseudo ||
+        !newPlayer.email ||
+        !newPlayer.password ){
+         req.flash("error", "Veuillez renseigner tous les champs"); // => Alix Créer Flash DONE
+         res.redirect("/signup");
+     } else {
+         // check if email exists in db :
+         const foundPlayer = await PlayerModel.findOne({email : newPlayer.email})
+         console.log('foundPlayer', foundPlayer);
+         if(foundPlayer){
+             console.log('---- player found in db')
+             req.flash("error", "Email déjà enregistré");
+             res.redirect("/signin");
+         }else{
+             // HASH + SALT the password !!
+             const hashedPwd = bcrypt.hashSync(newPlayer.password, 10); // je crée qlqc de nouveau, maisje le modif pour moi
+             newPlayer.password = hashedPwd // J'écrase l'ancien par le nouveau
+             console.log(`hashedPwd`, hashedPwd);
+             // Create new player un db :
+             await PlayerModel.create(newPlayer);
+             req.flash( "sucess","Félicitations ! Vous êtes enregistré ! Connectez-vous s'il vous plaît.");
+             res.redirect("/signin");
+         }
+     }
+ } catch (error){
+     // handling errors on form fields
     // console.log("signup - error: ", error);
-    let errorMessage = "";
-    for (field in error.errors) {
-      errorMessage += error.errors[field].message + "\n";
+    let errorMessage ="";
+    for( let field in error.errors) { 
+        errorMessage += error.errors[field].message +"\n"
     }
     req.flash("error", errorMessage); // affiche toutes erreurs
     res.redirect("/signup");
