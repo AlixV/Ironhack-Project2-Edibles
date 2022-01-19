@@ -8,7 +8,19 @@
 
 
 /* PLAYING SCREEN */
-#game-play img {
+#game-play {
+  background-repeat: no-repeat;
+  height: 80vh;
+  width: 100vw;
+}
+
+#game-play #card {
+  background-color: rgba(255, 248, 220, .4);
+  height: 50%;
+  width: 50%;
+}
+
+#game-play #card img {
   height: 25rem;
   width: 25rem;
   object-fit: cover;

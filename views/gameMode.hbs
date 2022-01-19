@@ -1,4 +1,4 @@
-<h2>Game Mode (déroulement du jeu)</h2>
+<h2>Survivras-tu ?</h2>
 
 <div id="mode-lifebar">
   <div>
@@ -7,12 +7,21 @@
   {{> lifebar}}
 </div>
 
-<div id="play-zone" style="background-image: url({{currentBackground}})">
+<div id="game-play" style="background-image: url('{{currentBackground}}')">
   <div id="card">
-    <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?">
+    <img src="{{currentPlant.imageUrl}}" alt="{{currentPlant.commonName}}">
+    {{!-- <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?"> --}}
+    {{#if gameplay.cardQuestionDisplay}}
     <div>
       <a href="/game/{{gameplay.mode}}/eat">Mange-moi</a>
       <a href="/game/{{gameplay.mode}}/leave">Jette-moi</a>
     </div>
+    {{/if}}
+    {{#if gameplay.cardAnswerDisplay}}
+    <div>
+      <p>{{gameplay.message}}</p>
+      <a href="/game/{{gameplay.mode}}/next">Plante suivante</a>
+    </div>
+    {{/if}}
   </div>
 </div>

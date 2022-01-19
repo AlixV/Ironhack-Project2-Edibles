@@ -21,12 +21,13 @@ router.get('/', async (req, res, next) => {
 });
 
 // - to display one plant
-router.get('/:plantId', async (req, res, next) => {
+router.get('/:plantId/:fromId', async (req, res, next) => {
   const id = req.params.plantId;
   console.log(`plantId`, id);
+  const fromRoute = getFromRoute(req.params.fromId);
   const plant = await PlantModel.findById(id);
   // console.log(`plant`, plant);
-  res.render('plantOne', { plant });
+  res.render('plantOne', { plant, fromRoute });
 });
 
 
