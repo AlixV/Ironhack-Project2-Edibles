@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www -e .js,.hbs",
+    "dev": "nodemon ./bin/www -e js,hbs",
     "seed:plant": "node ./bin/seed/seed.plant.js",
     "seed:player": "node ./bin/seed/seed.player.js",
     "seed:recipes": "node ./bin/seed/seed.recipe.js"
