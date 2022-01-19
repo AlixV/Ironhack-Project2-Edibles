@@ -14,10 +14,11 @@
 {{!-- plants les plus reconnus  --}}
 
 {{!-- RECIPES  --}}
-{{!-- Liste de recette :
-
- Titre recette  
- Duration
- EDIT + DELETE
-
- --}}
+<h3>Vos recettes</h3>
+{{#if recipesToDisplay}}
+    {{#each recipesToDisplay}}
+        {{> recipeOneList}}
+    {{/each}}
+{{else}}
+    <p>Vous n'avez pas encore de recettes à afficher</p>
+{{/if}}
