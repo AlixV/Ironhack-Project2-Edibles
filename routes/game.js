@@ -180,7 +180,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
 
         // finishing to prepare data for the view
         gameplay.maxLife = req.session.playerLifeMax;
-        gameplay.cards = numOfCards;
+        gameplay.cards = req.session.numOfCards;
         // - setting the expected display
         gameplay.cardQuestionDisplay = req.session.cardQuestionDisplay;
         gameplay.cardAnswerDisplay = req.session.cardAnswerDisplay;
@@ -207,7 +207,11 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         // finishing to prepare data for the view
         gameplay.maxLife = req.session.playerLifeMax;
         gameplay.life = req.session.playerLifeCurrent;
-        gameplay.cards = numOfCards;
+        gameplay.cards = req.session.numOfCards;
+
+        // - update the display in session
+        req.session.cardQuestionDisplay = true;
+        req.session.cardAnswerDisplay = false;
         // - setting the expected display
         gameplay.cardQuestionDisplay = req.session.cardQuestionDisplay;
         gameplay.cardAnswerDisplay = req.session.cardAnswerDisplay;
@@ -220,10 +224,6 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
           req.session.currentBackground = backgrounds[Math.ceil(Math.random() * backgrounds.length)];
         }
         currentBackground = req.session.currentBackground;
-        
-        // update the display in session
-        req.session.cardQuestionDisplay = true;
-        req.session.cardAnswerDisplay = false;
         
         // testing the number of cards already viewed to select the next view
         if (req.session.indexPlant < numOfCards) {
