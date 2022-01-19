@@ -1,15 +1,18 @@
 {{!-- Display all recipes available to the player --}}
 
 <h2>Bonjour {{player.pseudo}}</h2>
+
+{{#if plants}}
+
 <h3>Qu'est ce qu'on mange ce soir ?</h3>
 
 {{!-- filter available recipes by plant --}}
 <div>
     <label for="plant">Choisir une plante</label>
     <select name="plant" id="plant">
-        {{#each plants}}
-            <option value="{{this._id}}">{{this.commonName}}</option>
-        {{/each}}
+            {{#each plants}}
+                <option value="{{this._id}}">{{this.commonName}}</option>
+            {{/each}}
     </select>
 </div>
 
@@ -24,12 +27,12 @@
 <div>
     {{#each recipe}}
         <div>
-            <a href="/recipes/one/{{this._id}}">
-                <h4>{{this.name}}</h4>
-            </a>
-            <p>Durée: {{this.durationMinutes}}minutes</p>
-            <img src="{{this.image}}" alt="{{this.name}}">
+            {{> recipeOneList}}
             <p>Auteur: {{this.creator.pseudo}}</p>
         </div>
     {{/each}}
 </div>
+
+{{else}}
+    <h3>Désolée, vous devez identifier des plantes comestibles pour pouvoir accéder aux recettes !</h3>        
+{{/if}}

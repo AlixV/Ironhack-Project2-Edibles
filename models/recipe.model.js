@@ -23,7 +23,7 @@ const recipeSchema = new Schema({
   },
   image: {
     type: String,
-    default: "/public/images/icons/recipe-default.svg",
+    default: "/images/icons/recipe-default.svg",
   },
   creator: {
     type: Schema.Types.ObjectId,

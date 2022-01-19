@@ -6,6 +6,8 @@ const PlayerModel = require("./../models/Player.model");
 const PlantModel = require("./../models/Plant.model");
 const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
+// require helper functions
+
 // this route is prefixed with /recipes
 
 // *** GET all recipes available to the player (with plants identified)
@@ -23,6 +25,7 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
     console.log("plantsIdentifiedByPlayer :>> ", plantsIdentifiedByPlayer);
 
     // Clean the array keeping only plants who've been identified at least three times
+
     const innerFilterArray = [];
     for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
       if (object.count >= 3) {
@@ -39,13 +42,16 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
       .populate("plant")
       .populate("creator");
 
-    // access the identified plants common name only once
-    const plantsToDisplay = await PlantModel.findById(innerFilterArray);
+    // Filter option : access the identified plants common name only once
+    const plantsToDisplay = await PlantModel.find({
+      _id: { $in: innerFilterArray },
+    });
 
     res.render("recipesAll.hbs", {
       recipe: recipesToDisplay,
       player: playerId,
       plants: plantsToDisplay,
+      css: ["recipes.css"],
     });
   } catch (error) {
     next(error);
@@ -110,17 +116,19 @@ router.post(
     try {
       const { name, durationMinutes, plant, otherIngredients, instructions } =
         req.body;
+      const creator = req.session.currentUser._id;
+
       const newRecipe = {
         name,
         durationMinutes,
         plant,
         otherIngredients,
         instructions,
+        creator,
       };
 
       if (req.file) newRecipe.image = req.file.path;
 
-      const creator = req.session.currentUser._id;
       const createdRecipe = await RecipeModel.create(newRecipe);
       console.log("newRecipe", newRecipe);
 
