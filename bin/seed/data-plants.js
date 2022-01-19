@@ -1290,7 +1290,7 @@
     description:
       "Plante grimpante par ses vrilles, feuilles transformées et opposées aux feuilles, remarquables par leurs enroulements symétriques et alternés. Les tiges grêles peuvent atteindre jusqu'à 6 m de long. Odeur des feuilles assez désagréable.",
     isEdible: false,
-    isToxic: true,
+    isToxic: false,
     isLethal: true,
     edible_parts: "",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Bryone1.jpg",
