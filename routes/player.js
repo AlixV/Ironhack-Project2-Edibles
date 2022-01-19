@@ -4,7 +4,7 @@ const protectPrivateRoute = require("../middlewares/protectPrivateRoute")
 
 // ROUTES PREFIXED BY /player
 
-router.get("/:id", protectPrivateRoute, (req, res, next) => {
+router.get("/", protectPrivateRoute, (req, res, next) => {
     res.render("playerProfile", {
         player : req.session.currentUser
     })
@@ -12,7 +12,7 @@ router.get("/:id", protectPrivateRoute, (req, res, next) => {
 
  
 // UPDATE
-router.get("/update", (req, res) => {
+router.get("/update", protectPrivateRoute, (req, res) => {
 	//const id = req.params.id; PAS UTILE BYE
     res.render("playerUpdate", {
         player : req.session.currentUser
@@ -45,7 +45,7 @@ const deletePlayer = async (req, res) => {
 	}
 };
 
-router.get("/delete", deletePlayer);
+router.get("/delete",protectPrivateRoute, deletePlayer);
 
 // logout = > cad faire sortir le current user de current session. 
 // Voir dans auth
