@@ -1,36 +1,73 @@
-<h2>{{player.pseudo}}</h2>
-<img src="{{player.avatar}}" alt="{{player.pseudo}}">
-<div>
-    <p> Email : {{player.email}}</p>
+<main id="content-main">
+
+<div id="big-div">
+
+    <div id="player-profile">
+
+
+         <div id="img-div">
+             <img src="{{player.avatar}}" alt="{{player.pseudo}}">
+         </div>
+
+        <div id="infos">
+            <h2>Bonjour {{player.pseudo}}</h2>
+    
+            <div>
+                <p> Email : {{player.email}}</p>
+            </div>
+    
+            <div>
+                <p>
+                    <a href="/player/update"> Modifier le profil</a> ||
+                    <a href="/player/delete"> Supprimer le profil</a> ||
+                    <a href="/logout"> Déconnexion</a> 
+                </p>
+            </div>
+        </div>
+        
+    </div>
+    {{!-- MY PLANT COLLECTION  --}}
+   {{#if player.plantsIdentified}}
+    <div id="plant-container-main"> 
+       <h3> Mes plantes</h3>
+       <div id="plant-container-list">
+            {{#each player.plantsIdentified}}
+                <div class="plant-container">
+                    <a href="/{{this.plant._id}}/player" ><img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}"></a>
+            
+                </div>
+            {{/each}}
+        </div>
+            {{else}}
+                </br>
+                <p>Tu n'as pas encore de plantes à afficher</p>
+   </div>
+
+   {{/if}}
+    
+    {{!-- RECIPES  --}}
+    
+    <div id="add-recipe" >
+        <h3>Ajouter une nouvelle recette</h3>
+        <a href="/recipes/addRecipe/player"><img  id="add-icon" src="/images/icons/cauldron.svg" alt="addarecipe-icon"></a>
+        
+    </div>
+    
+    <div id="recipes-list">
+        <h3>Mes recettes</h3>
+        
+        {{#if recipe}}
+            {{#each player.recipes}}
+                <a href="/recipes/one/{{this._id}}/player">
+                    {{> recipeOneList}}
+                </a>
+            {{/each}}
+            <a href="/recipes">Voir toutes les recettes</a>
+        {{else}}
+            </br>
+            <p>Tu n'as pas encore de recettes à afficher</p>
+        {{/if}}
+       
+    </div>
 </div>
-
-<div>
-    <a href="/player/update"> Modifier le profil</a>
-    <a href="/logout"> Déconnexion</a>
-    <a href="/player/delete"> Supprimer le profil</a>
-</div>
-
-{{!-- MY PLANT COLLECTION  --}}
-{{!-- plants les plus reconnus  --}}
-
-{{!-- RECIPES  --}}
-
-<div>
-    <h3>Ajouter une nouvelle recette</h3>
-    <a href="/recipes/addRecipe/player">"Add" icon here</a>
-    {{!-- <img src="/images/icons/cauldron.svg" alt="addarecipe-icon"> --}}
-</div>
-
-<h3>Tes recettes</h3>
-
-{{#if recipe}}
-    {{#each player.recipes}}
-        <a href="/recipes/one/{{this._id}}/player">
-            {{> recipeOneList}}
-        </a>
-    {{/each}}
-    <a href="/recipes">Voir toutes les recettes</a>
-{{else}}
-    </br>
-    <p>Tu n'as pas encore de recettes à afficher</p>
-{{/if}}
+</main>

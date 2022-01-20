@@ -39,7 +39,7 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
 
     const playerInfosFromDB = await PlayerModel.findById(player._id).populate(
       "recipes"
-    );
+    ).populate("plantsIdentified.plant")
 
     console.log("playerInfosFromDB :>> ", playerInfosFromDB);
 
