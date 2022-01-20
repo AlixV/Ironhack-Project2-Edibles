@@ -204,20 +204,20 @@ router.post(
       // récuper payload axios dans req.body
       console.log(req.body);
 
-      const { name, durationMinutes, plant, ingredients, instructions } =
+      const { name, durationMinutes, plant, otherIngredients, instructions } =
         req.body;
       const creator = req.session.currentUser._id;
 
-      console.log(
-        "----------- otherIngredients before loop :>> ",
-        otherIngredients
-      );
-      // get the "other ingredients inputs" and eliminate the empty fields
-      otherIngredients.filter((ingredient) => {
-        if (ingredient === "") {
-          otherIngredients.splice(index, 1);
-        }
-      });
+      // console.log(
+      //   "----------- otherIngredients before loop :>> ",
+      //   otherIngredients
+      // );
+      // // get the "other ingredients inputs" and eliminate the empty fields
+      // otherIngredients.filter((ingredient) => {
+      //   if (ingredient === "") {
+      //     otherIngredients.splice(index, 1);
+      //   }
+      // });
 
       console.log(
         "-------------- otherIngredients after loop :>> ",

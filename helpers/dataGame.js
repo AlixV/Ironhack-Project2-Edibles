@@ -9,12 +9,9 @@ const dataGame = {
   ACTION_EAT: "eat",
   ACTION_LEAVE: "leave",
   ACTION_NEXT: "next",
-<<<<<<< Updated upstream
   ACTION_END: "end",
   // option (use the spirit-plant chosen at registration to undie for one round)
   ACTION_SPIRIT: "spirit",
-=======
->>>>>>> Stashed changes
 
   // messages after action
   MSG_SUCCESS_BEGINNING: "Bravo! Cette plante (",
