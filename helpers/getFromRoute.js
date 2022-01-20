@@ -1,5 +1,5 @@
-const dataAppNav = require('./dataAppNav');
-const dataGame = require('./dataGame');
+const dataAppNav = require("./dataAppNav");
+const dataGame = require("./dataGame");
 
 module.exports = function getFromRoute(fromId) {
   let newRoute = "";
