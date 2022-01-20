@@ -36,9 +36,10 @@ body {
 
 /* PLAYING SCREEN */
 #game-play {
-  background-repeat: no-repeat;
-  height: 80vh;
-  width: 100vw;
+  /* background-repeat: no-repeat; */
+  background-color: var(--light-green);
+  /* height: 80vh;
+  width: 100vw; */
 }
 
 #game-play #card {
