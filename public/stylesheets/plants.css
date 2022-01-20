@@ -1,0 +1,23 @@
+
+/* ================= */
+/* TEST_MODE - BEGIN */
+#plants #card #TEST_MODE img {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+}
+/* TEST_MODE - END   */
+/* ================= */
+
+#plants #card img {
+  height: 20rem;
+  width: 20rem;
+  object-fit: cover;
+}
+
+#plants #card img.icon {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+}
+

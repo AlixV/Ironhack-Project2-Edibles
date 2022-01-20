@@ -30,7 +30,11 @@ router.get('/:plantId/:fromId', async (req, res, next) => {
   const fromRoute = getFromRoute(req.params.fromId);
   const plant = await PlantModel.findById(id);
   // console.log(`plant`, plant);
+<<<<<<< Updated upstream
   res.render('plantOne', { plant, fromRoute, css: ["plants.css"]  });
+=======
+  res.render('plantOne', { plant, fromRoute });
+>>>>>>> Stashed changes
 });
 
 
