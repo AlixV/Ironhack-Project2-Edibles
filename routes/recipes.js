@@ -46,6 +46,8 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
       .populate("plant")
       .populate("creator");
 
+    console.log("recipes to display :", recipesToDisplay);
+
     // Filter option : access the identified plants common name only once
     const plantsToDisplay = await PlantModel.find({
       _id: { $in: innerFilterArray },
