@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-
+/* 
 #header-main {
     border: 2px solid black;
     background-color: white;
@@ -15,7 +15,7 @@ body {
     font-family: Roboto;
     font-size: 1.4rem;
     padding: 0 10px;
-}
+} */
 
 #main-title-card {
     border: 3px solid black;
