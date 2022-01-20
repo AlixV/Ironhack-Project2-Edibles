@@ -1260,7 +1260,7 @@
       "C'est un arbuste buissonnant dont la taille varie de 1 à 2 mètres. Ses branches sont hérissées d'épines de 2 à 5 cm et forment un ensemble très touffu.",
     isEdible: false,
     isToxic: true,
-    isLethal: true,
+    isLethal: false,
     edible_parts: "",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Bloody_Bridge_car_park%2C_May_2010_%2804%29.JPG/1024px-Bloody_Bridge_car_park%2C_May_2010_%2804%29.JPG",
@@ -1334,7 +1334,7 @@
     description:
       "Ce sont des arbustes de 2 à 3 mètres de haut. Les feuilles simples et opposées, non épineuses, mesurent jusqu'à 10 centimètres de long et 3 de largeur, s'apparentant à celles du myrte. Les fleurs verdâtres, assez petites, apparaissent en rameaux en avril-mai. Les fruits sont akènes, noirs, semblables aux mûres, mais toxiques.",
     isEdible: false,
-    isToxic: true,
+    isToxic: false,
     isLethal: true,
     edible_parts: "",
     imageUrl:

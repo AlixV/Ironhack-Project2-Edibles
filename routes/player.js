@@ -14,32 +14,43 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
 
     // display the recipes the player has access to
     // 1 -retrieve the plants that have been identified
-    const plantsIdentifiedByPlayer = await PlayerModel.findById(player._id, {
-      plantsIdentified: 1,
-      _id: 0,
-    });
+    // const plantsIdentifiedByPlayer = await PlayerModel.findById(player._id, {
+    //   plantsIdentified: 1,
+    //   _id: 0,
+    // });
 
-    console.log("plantsIdentifiedByPlayer :>> ", plantsIdentifiedByPlayer);
+    // console.log("plantsIdentifiedByPlayer :>> ", plantsIdentifiedByPlayer);
 
-    // 2 - filter only the plants identified three times or more
-    const innerFilterArray = [];
-    for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
-      if (object.count >= 3) {
-        innerFilterArray.push(object.plant);
-      }
+    // // 2 - filter only the plants identified three times or more
+    // const innerFilterArray = [];
+    // for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
+    //   if (object.count >= 3) {
+    //     innerFilterArray.push(object.plant);
+    //   }
+    // }
+    // console.log("innerFilterArray :>> ", innerFilterArray);
+
+    // // 3- filter the recipes collection  to display only the ones including the identified plants + player is author
+    // const recipesToDisplay = await RecipeModel.find({
+    //   plant: { $in: innerFilterArray }, creator: {}
+    // })
+    //   .populate("plant")
+    //   .populate("creator");
+
+    const playerInfosFromDB = await PlayerModel.findById(player._id).populate(
+      "recipes"
+    );
+
+    console.log("playerInfosFromDB :>> ", playerInfosFromDB);
+
+    let recipe = false;
+    if (playerInfosFromDB.recipes.length > 0) {
+      recipe = true;
     }
-    console.log("innerFilterArray :>> ", innerFilterArray);
-
-    // 3- filter the recipes collection  to display only the ones including the identified plants
-    const recipesToDisplay = await RecipeModel.find({
-      plant: { $in: innerFilterArray },
-    })
-      .populate("plant")
-      .populate("creator");
-
     res.render("playerProfile", {
-      player,
-      recipesToDisplay,
+      player: playerInfosFromDB,
+      // recipesToDisplay,
+      recipe,
       css: ["recipes.css"],
     });
   } catch (error) {

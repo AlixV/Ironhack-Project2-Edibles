@@ -8,31 +8,46 @@
 
 {{!-- filter available recipes by plant --}}
 <div>
-    <label for="plant">Choisir une plante</label>
+    {{!-- <label for="plant">Choisir une plante</label>
     <select name="plant" id="plant">
+            <option value=""></option>
             {{#each plants}}
                 <option value="{{this._id}}">{{this.commonName}}</option>
             {{/each}}
-    </select>
+    </select> --}}
+    <form id="filter-form">
+        <ul id="plants-checkbox-filter">
+            {{#each plants}}
+                <li class="plant-checkbox-item">
+                    <label for="input_{{this._id}}">{{this.commonName}}</label>
+                    <input type="checkbox" name="plants" value="{{this._id}}" id="input_{{this._id}}" class="checkbox">
+                </li>
+            {{/each}}
+        </ul>
+    </form>
 </div>
 
 {{!-- add a new recipe --}}
 <div>
     <h3>Ajouter une nouvelle recette</h3>
-    <a href="/recipes/addRecipe">"Add" icon here</a>
+    <a href="/recipes/addRecipe/recipes">"Add" icon here</a>
     {{!-- <img src="/images/icons/cauldron.svg" alt="addarecipe-icon"> --}}
 </div>
 
 {{!-- list of recipes --}}
-<div>
+<div id="recipes-list">
     {{#each recipe}}
-        <div>
+        <div class="recipe-list-card">
+            <a href="/recipes/one/{{this._id}}/recipes">
             {{> recipeOneList}}
             <p>Auteur: {{this.creator.pseudo}}</p>
+            </a>
         </div>
     {{/each}}
 </div>
 
+<a href="/player">Accède à ton profil</a>
+
 {{else}}
-    <h3>Désolée, vous devez identifier des plantes comestibles pour pouvoir accéder aux recettes !</h3>        
+    <h3>Désolée, tu dois identifier des plantes comestibles pour pouvoir accéder aux recettes !</h3>        
 {{/if}}

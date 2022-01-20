@@ -4,6 +4,8 @@ const uploader = require("./../config/cloudinary");
 const RecipeModel = require("./../models/recipe.model");
 const PlayerModel = require("./../models/Player.model");
 const PlantModel = require("./../models/Plant.model");
+const getFromRoute = require("./../helpers/getFromRoute");
+
 const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 // require helper functions
@@ -27,12 +29,14 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
     // Clean the array keeping only plants who've been identified at least three times
 
     const innerFilterArray = [];
+
     for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
       if (object.count >= 3) {
         innerFilterArray.push(object.plant);
       }
     }
 
+    console.log("req.query.plants :", req.query.plants);
     console.log("innerFilterArray :>> ", innerFilterArray);
 
     // filter the recipes collection  to display only the ones including the identified plants
@@ -41,6 +45,8 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
     })
       .populate("plant")
       .populate("creator");
+
+    console.log("recipes to display :", recipesToDisplay);
 
     // Filter option : access the identified plants common name only once
     const plantsToDisplay = await PlantModel.find({
@@ -52,60 +58,141 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
       player: playerId,
       plants: plantsToDisplay,
       css: ["recipes.css"],
+      js: ["DOM-filter-recipe.js"],
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Filter the recipes list with plants
+router.get("/filter", async (req, res, next) => {
+  try {
+    const playerId = req.session.currentUser;
+    console.log(playerId);
+
+    // retrive an array of plants identified by the user
+    const plantsIdentifiedByPlayer = await PlayerModel.findById(playerId, {
+      plantsIdentified: 1,
+      _id: 0,
+    });
+    // Clean the array keeping only plants who've been identified at least three times
+
+    const innerFilterArray = [];
+
+    // handle ajax request to filter recipes by plants
+    if (!req.query.plants) {
+      for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
+        if (object.count >= 3) {
+          innerFilterArray.push(object.plant);
+        }
+      }
+    } else {
+      req.query.plants.forEach((plant) => innerFilterArray.push(plant));
+    }
+
+    console.log("req.query.plants :", req.query.plants);
+    console.log("innerFilterArray :>> ", innerFilterArray);
+
+    // filter the recipes collection  to display only the ones including the identified plants
+    const recipesToDisplay = await RecipeModel.find({
+      plant: { $in: innerFilterArray },
+    })
+      .populate("plant")
+      .populate("creator");
+
+    console.log("recipes to display :", recipesToDisplay);
+
+    res.send(recipesToDisplay).end();
   } catch (error) {
     next(error);
   }
 });
 
 // *** GET the details of a recipe
-router.get("/one/:recipeId", protectPrivateRoute, async (req, res, next) => {
-  try {
-    const recipeToDisplay = await RecipeModel.findById(req.params.recipeId)
-      .populate("plant")
-      .populate("creator");
-    console.log("recipeToDisplay :>> ", recipeToDisplay);
-    res.render("recipeOne.hbs", {
-      recipe: recipeToDisplay,
-    });
-  } catch (error) {
-    next(error);
+router.get(
+  "/one/:recipeId/:fromId",
+  protectPrivateRoute,
+  async (req, res, next) => {
+    try {
+      // get the recipe
+      const player = req.session.currentUser;
+
+      const recipeToDisplay = await RecipeModel.findById(req.params.recipeId)
+        .populate("plant")
+        .populate("creator");
+      console.log("recipeToDisplay :>> ", recipeToDisplay);
+
+      // verify if the creator of the recipe is the user
+      console.log(
+        "recipeToDisplay.creator._id :>> ",
+        recipeToDisplay.creator._id
+      );
+
+      let creator = false;
+
+      if (player._id === recipeToDisplay.creator._id.toString()) {
+        creator = true;
+      }
+
+      // Get the inital route
+      const fromRoute = getFromRoute(req.params.fromId);
+
+      res.render("recipeOne.hbs", {
+        recipe: recipeToDisplay,
+        creator,
+        fromRoute,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // *** GET the form to add a new recipe
-router.get("/addRecipe", protectPrivateRoute, async (req, res, next) => {
-  try {
-    // get the player's Id
-    const playerId = req.session.currentUser;
-    // retrive an array of plants identified by the user
-    const plantsIdentifiedByPlayer = await PlayerModel.findById(playerId._id, {
-      plantsIdentified: 1,
-      _id: 0,
-    }).populate("plantsIdentified");
+router.get(
+  "/addRecipe/:fromId",
+  protectPrivateRoute,
+  async (req, res, next) => {
+    try {
+      // get the player's Id
+      const playerId = req.session.currentUser;
+      // retrive an array of plants identified by the user
+      const plantsIdentifiedByPlayer = await PlayerModel.findById(
+        playerId._id,
+        {
+          plantsIdentified: 1,
+          _id: 0,
+        }
+      ).populate("plantsIdentified");
 
-    console.log("plantsIdentifiedByPlayer :>> ", plantsIdentifiedByPlayer);
+      console.log("plantsIdentifiedByPlayer :>> ", plantsIdentifiedByPlayer);
 
-    const innerFilterArray = [];
-    for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
-      if (object.count >= 3) {
-        innerFilterArray.push(object.plant);
+      const innerFilterArray = [];
+      for (let object of plantsIdentifiedByPlayer.plantsIdentified) {
+        if (object.count >= 3) {
+          innerFilterArray.push(object.plant);
+        }
       }
+
+      const plantsToDisplay = await PlantModel.find({
+        _id: { $in: innerFilterArray },
+      });
+      // Get the inital route
+      const fromRoute = getFromRoute(req.params.fromId);
+
+      // render the form with only the plants available as ingredients
+
+      res.render("recipeAdd.hbs", {
+        plants: plantsToDisplay,
+        fromRoute,
+        js: ["DOM-recipe.js"],
+      });
+    } catch (error) {
+      next(error);
     }
-
-    const plantsToDisplay = await PlantModel.find({
-      _id: { $in: innerFilterArray },
-    });
-
-    // render the form with only the plants available as ingredients
-
-    res.render("recipeAdd.hbs", {
-      plants: plantsToDisplay,
-    });
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // /recipes/addRecipe => POST
 router.post(
@@ -114,9 +201,18 @@ router.post(
   uploader.single("image"),
   async (req, res, next) => {
     try {
+      // récuper payload axios dans req.body
+      console.log(req.body);
       const { name, durationMinutes, plant, otherIngredients, instructions } =
         req.body;
       const creator = req.session.currentUser._id;
+
+      // display flash message error if some required fields are missing
+
+      if (!name || !durationMinutes || !plant || !instructions) {
+        req.flash("error", "Veuillez renseigner tous les champs");
+        res.redirect("/recipes/addRecipe/player");
+      }
 
       const newRecipe = {
         name,
@@ -130,6 +226,14 @@ router.post(
       if (req.file) newRecipe.image = req.file.path;
 
       const createdRecipe = await RecipeModel.create(newRecipe);
+
+      // update the player with the new recipe
+      // find the newly created recipe in DB
+
+      const updatedCreator = await PlayerModel.findById(creator);
+      updatedCreator.recipes.push(createdRecipe);
+      updatedCreator.save();
+
       console.log("newRecipe", newRecipe);
 
       res.redirect("/recipes");

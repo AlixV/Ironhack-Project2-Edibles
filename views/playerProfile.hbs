@@ -1,5 +1,5 @@
 <h2>{{player.pseudo}}</h2>
-
+<img src="{{player.avatar}}" alt="{{player.pseudo}}">
 <div>
     <p> Email : {{player.email}}</p>
 </div>
@@ -14,11 +14,23 @@
 {{!-- plants les plus reconnus  --}}
 
 {{!-- RECIPES  --}}
-<h3>Vos recettes</h3>
-{{#if recipesToDisplay}}
-    {{#each recipesToDisplay}}
-        {{> recipeOneList}}
+
+<div>
+    <h3>Ajouter une nouvelle recette</h3>
+    <a href="/recipes/addRecipe/player">"Add" icon here</a>
+    {{!-- <img src="/images/icons/cauldron.svg" alt="addarecipe-icon"> --}}
+</div>
+
+<h3>Tes recettes</h3>
+
+{{#if recipe}}
+    {{#each player.recipes}}
+        <a href="/recipes/one/{{this._id}}/player">
+            {{> recipeOneList}}
+        </a>
     {{/each}}
+    <a href="/recipes">Voir toutes les recettes</a>
 {{else}}
-    <p>Vous n'avez pas encore de recettes à afficher</p>
+    </br>
+    <p>Tu n'as pas encore de recettes à afficher</p>
 {{/if}}

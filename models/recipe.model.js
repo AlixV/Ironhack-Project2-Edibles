@@ -5,21 +5,21 @@ const { model, Schema } = require("mongoose");
 const recipeSchema = new Schema({
   name: {
     type: String,
-    // required: true,
+    required: true,
   },
   durationMinutes: {
     type: Number,
-    // required: true,
+    required: true,
   },
   plant: {
     type: Schema.Types.ObjectId,
     ref: "plant",
-    //   required: true,
+    required: true,
   },
   otherIngredients: [String],
   instructions: {
     type: String,
-    // required: true,
+    required: true,
   },
   image: {
     type: String,

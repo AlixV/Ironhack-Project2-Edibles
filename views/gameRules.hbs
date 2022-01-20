@@ -1,50 +1,48 @@
 
 
-<h1> RÈGLES DU JEU </h1>
+<h1> Comment jouer ? </h1>
 
 <div id="rules-intro">
-    <p> Jouer à EDIBLES c'est partir à la découverte d'une multitude de plantes plus ou moins connues et surtout plus ou moins comestible... ! <br>
-    À toi de choisir les quelles manger et jeter pour suvrivre.
+    <p> Part sur les sentiers à la découverte d'une multitude de plantes plus ou moins connues, et surtout, plus ou moins comestibles... !
+À toi de choisir lesquelles manger pour survivre.
      </p>
 </div>
 
 
 <div id="rules-mode">
-    <h3> 1/ Sélectionne le mode de jeu </h3>
-    <p> Le mode de jeu correspond au nombre de plantes qu'il te faudra identifier. <br> Celles-ci seront affichées sur des cartes. </p>
-    <p>Petite maline, petit malin, tu ne peux pas t'en sortir sans rien manger !!</p>
+    <h3> >> Sélectionne le mode de jeu </h3>
+    <p> Il correspond au nombre de plantes qu'il te faudra identifier. </br> En fonction de ton énergie, pars pour une petite balade, une bonne rando, ou carément un trek ! <br> Tu découvriras la flore autour de toi. </p>
      {{!-- <br> 
         En fonction du mode de jeu sélectionné tu deveras manger un minimum de plantes par partie pour ne pas mourir de faim ! --}}
-    <ul>
+    {{!-- <ul>
         <li> Mode Balade : {{rulesInfo.baladeNbCards}} cartes </li>
         <li> Mode Rando : {{rulesInfo.randoNbCards}} cartes </li> 
         <li> Mode Trek : {{rulesInfo.trekNbCards}} cartes </li>  
     </ul>
-</div>
+</div> --}}
 
 <div id="eat">
-    <h3> 2/ Mangez</h3>
+    <h3> >> Mangez</h3>
     <p> Manger une plante, c'est découvrir si celle-ci est comestible, toxique ou létale : </p>
         <ul>
-            <li> Comestible : Tu gagnes des forces . <br> Si tu réussis à identifiez plusieurs fois une même plante comme comestible, celle-ci est ajoutée à ta collection de plantes.</li>
-            <li> Toxique : Tu perds des forces.</li>
-            <li> Mortelle : C'est l'heure du décès. </li>
+            <li> > Comestible : Tu gagnes des forces. </li>
+            <li> > Toxique : Tu perds des forces.</li>
+            <li> > Mortelle : Sorry, fin de partie pour toi ! </li>
         </ul>
 </div>
 
 <div id="discard">
-    <h3> 2/ Jeter</h3>
-    <p> Jeter une plante , c'est découvrir si celle-ci est comestible, toxique ou létale : </p>
+    <h3> >> Jeter</h3>
+    <p> L'autre option, c'est de laisser la plante sur le bas-côté. </p>
         <ul>
-            <li> Comestible : Sans conséquence. </li>
-            <li> Toxique ou mortelle : Tu gagnes  des forces. 
-                <br> Si tu réussis à identifiez plusieurs fois une même plante comme toxique ou mortelle, celle-ci est ajoutée à ta collection de plantes.</li> 
+            <li> > Si elle était comestible, tu ne risques pas grand chose, mais attention, à force de ne rien manger, tu vas perdre des forces… et peut-être la partie.</li>
+            <li> > Si elle était toxique ou mortelle, bravo pour ce choix avisé.</li> 
         </ul>
 </div>
 
 <div id="plantCollection">
-    <h3> 3/ Collection de plantes</h3>
-    <p> Les plantes bien identifiées  sont ajoutées à ta collection personnelle. <br>Dans cette collection tu pourras écrire des recettes liées aux plantes de ta collection</p>
+    <h3> >> Collection de plantes</h3>
+    <p> Si à trois reprises tu identifies correctement une plante (qu'elle soit comestible, toxique ou mortelle), <br> elle va s’ajouter à ta collection de plantes et tu pourras consulter la fiche associée. <br> Tu pourras aussi voir les recettes associées aux plantes comestibles, et ajouter les tiennes !</p>
 </div>
 
 {{!-- (mangées lorsque comestibles et jetées lorsque toxiques ou mortelle) --}}
