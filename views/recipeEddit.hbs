@@ -14,9 +14,14 @@
     </select>
 
     <label for="otherIngredients">Autres ingrédients</label>
-    {{#each recipe.otherIngredients}}
-    <input type="text" id="otherIngredients" name="otherIngredients" value="{{recipe.otherIngredients}}">
+    {{#each otherIngredientsDisplay}}
+        <input type="text" name="otherIngredients" value={{this}}>
     {{/each}}
+        <input type="text" name="otherIngredients">
+        <input type="text" name="otherIngredients">
+        <input type="text" name="otherIngredients">
+        <input type="text" name="otherIngredients">
+        <input type="text" name="otherIngredients">
 
     <label for="instructions">Instructions</label>
     <input type="text" id="instructions" name="instructions" value="{{recipe.instructions}}">

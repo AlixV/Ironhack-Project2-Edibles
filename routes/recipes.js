@@ -46,8 +46,6 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
       .populate("plant")
       .populate("creator");
 
-    console.log("recipes to display :", recipesToDisplay);
-
     // Filter option : access the identified plants common name only once
     const plantsToDisplay = await PlantModel.find({
       _id: { $in: innerFilterArray },
@@ -204,21 +202,25 @@ router.post(
       // récuper payload axios dans req.body
       console.log(req.body);
 
-      const { name, durationMinutes, plant, otherIngredients, instructions } =
-        req.body;
+      const { name, durationMinutes, plant, instructions } = req.body;
+      let otherIngredients = req.body.otherIngredients;
+
       const creator = req.session.currentUser._id;
 
-      // console.log(
-      //   "----------- otherIngredients before loop :>> ",
-      //   otherIngredients
-      // );
-      // // get the "other ingredients inputs" and eliminate the empty fields
-      // otherIngredients.filter((ingredient) => {
-      //   if (ingredient === "") {
-      //     otherIngredients.splice(index, 1);
-      //   }
-      // });
+      console.log(
+        "----------- otherIngredients before loop :>> ",
+        otherIngredients
+      );
 
+      let otherIngredientsClean = [];
+      // get the "other ingredients inputs" and eliminate the empty fields
+      otherIngredients.forEach((ingredient) => {
+        if (ingredient) {
+          otherIngredientsClean.push(ingredient);
+        }
+      });
+
+      otherIngredients = [...otherIngredientsClean];
       console.log(
         "-------------- otherIngredients after loop :>> ",
         otherIngredients
@@ -301,9 +303,16 @@ router.get("/edit/:recipeId", protectPrivateRoute, async (req, res, next) => {
     const recipeToEdit = await RecipeModel.findById(
       req.params.recipeId
     ).populate("plant");
+
+    let otherIngredientsDisplay = ["", "", "", "", "", "", "", "", "", ""];
+    recipeToEdit.otherIngredients.forEach((ingredient, index) => {
+      otherIngredientsDisplay[index] = ingredient;
+    });
+
     res.render("recipeEddit.hbs", {
       recipe: recipeToEdit,
       plants: plantsToDisplay,
+      otherIngredientsDisplay,
     });
   } catch (error) {
     next(error);
