@@ -7,7 +7,7 @@
   font-family: Roboto;
   font-size: 1.5rem;
   padding: 10px 20px;
-  margin-top: 1rem; 
+  margin-top: 1rem;
 }
 
 #nav-main {
@@ -47,8 +47,6 @@
   font-size: 2rem;
 }
 
-
-
 /* TEST */
 .a-mobile-div:hover {
   width: fit-content;
@@ -61,12 +59,9 @@
   color: white;
 }
 
-
 #nav-mobile.is-active {
   transform: translateX(0%);
 }
-
-
 
 @media (max-width: 850px) {
   #nav-main {

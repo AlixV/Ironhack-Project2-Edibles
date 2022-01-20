@@ -51,7 +51,7 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
       player: playerInfosFromDB,
       // recipesToDisplay,
       recipe,
-      css: ["recipes.css"],
+      css: ["recipes.css", "player.css"],
     });
   } catch (error) {
     next(error);
