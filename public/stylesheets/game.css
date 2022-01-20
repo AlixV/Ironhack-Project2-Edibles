@@ -8,6 +8,7 @@
 
 
 /* PLAYING SCREEN */
+
 #game-play {
   background-repeat: no-repeat;
   height: 80vh;
@@ -25,6 +26,16 @@
   width: 25rem;
   object-fit: cover;
 }
+
+/* ================= */
+/* TEST_MODE - BEGIN */
+#game-play #card #TEST_MODE img {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+}
+/* TEST_MODE - END   */
+/* ================= */
 
 
 /* END SCREEN */

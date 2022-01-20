@@ -1,3 +1,8 @@
+// ====== TEST_MODE ================
+// - to display the answers in views
+const TEST_MODE = true;
+// =================================
+
 require("dotenv").config();
 // router creation
 const express = require("express");
@@ -100,6 +105,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         // setting up the game to display the user
 
         // setting the game info in session for the first round
+        req.session.gameMode = gameplay.mode;
         // - set the display as question in session
         req.session.cardQuestionDisplay = true;
         req.session.cardAnswerDisplay = false;
@@ -126,7 +132,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         const plantIdCards = getShuffledCardsArray(distribution, ediblePlants, toxicPlants, lethalPlants);
         // - --- creating cardsToPlay to store objects with 2 keys: plantId and isChoiceOk
         for (const plantCard of plantIdCards) {
-          const plant = { plantId: plantCard._id, isChoiceOk: false };
+          const plant = { plantId: plantCard._id, isEdible: false, isChoiceOk: false };
           cardsToPlay.push(plant);
         }
         console.log(`cardsToPlay`, cardsToPlay);
@@ -150,7 +156,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         currentPlant = await PlantModel.findById(req.session.cardsToPlay[req.session.indexPlant].plantId);
         
         // passing to the view the background & plant to display (photo + commonName + isEdible, isToxic, isLethal)
-        res.render("gameMode", { gameplay, currentBackground, currentPlant, css: [ "game.css" ] });
+        res.render("gameMode", { gameplay, /* currentBackground, */ currentPlant, TEST_MODE, css: [ "game.css" ] });
       }
       else if (gameplay.action === dataGame.ACTION_EAT || gameplay.action === dataGame.ACTION_LEAVE) {
         
@@ -171,6 +177,8 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         gameplay.message = impact.msg;
         // - update the choice result for the card in session
         req.session.cardsToPlay[req.session.indexPlant].isChoiceOk = impact.isChoiceOk;
+        // - update the isEdible boolean in preparation of end game
+        req.session.cardsToPlay[req.session.indexPlant].isEdible = currentPlant.isEdible;
         // - update the display in session
         req.session.cardQuestionDisplay = false;
         req.session.cardAnswerDisplay = true;
@@ -184,10 +192,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         // - setting the expected display
         gameplay.cardQuestionDisplay = req.session.cardQuestionDisplay;
         gameplay.cardAnswerDisplay = req.session.cardAnswerDisplay;
-        // - implement the background changing logic
-        if (gameplay.cardQuestionDisplay) {
-          req.session.currentBackground = backgrounds[Math.ceil(Math.random() * backgrounds.length)];
-        }
+        // - resetting the current background from session
         currentBackground = req.session.currentBackground;
         
         // increment indexPlant for next round
@@ -196,7 +201,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         console.log("req.session.indexPlant after incrementation :>> ", req.session.indexPlant);
 
         // asking for the view passing background & plant to display
-        res.render("gameMode", { gameplay, currentBackground, currentPlant, css: ["game.css"] });
+        res.render("gameMode", { gameplay, /* currentBackground, */ currentPlant, TEST_MODE, css: ["game.css"] });
         
       }
       else if (gameplay.action === dataGame.ACTION_NEXT) {
@@ -216,29 +221,121 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         gameplay.cardQuestionDisplay = req.session.cardQuestionDisplay;
         gameplay.cardAnswerDisplay = req.session.cardAnswerDisplay;
         
-        // - get plant info
-        currentPlant = await PlantModel.findById(req.session.cardsToPlay[req.session.indexPlant].plantId);
-        
-        // - implement the background changing logic
-        if (gameplay.cardQuestionDisplay) {
-          req.session.currentBackground = backgrounds[Math.ceil(Math.random() * backgrounds.length)];
-        }
-        currentBackground = req.session.currentBackground;
-        
         // testing the number of cards already viewed to select the next view
-        if (req.session.indexPlant < numOfCards) {
+        if (req.session.indexPlant < req.session.numOfCards && req.session.playerLifeCurrent > 0) {
           // still some cards to display
+          console.log(`--- NEXT EAT/LEAVE - indexPlant: `, req.session.indexPlant);
+          console.log(`- playerLifeCurrent: `, req.session.playerLifeCurrent);
+          
+          // - get plant info
+          currentPlant = await PlantModel.findById(req.session.cardsToPlay[req.session.indexPlant].plantId);
+          console.log(`currentPlant`, currentPlant);
+          
+          // - implement the background changing logic
+          if (gameplay.cardQuestionDisplay) {
+            req.session.currentBackground = backgrounds[Math.ceil(Math.random() * backgrounds.length)];
+          }
+          currentBackground = req.session.currentBackground;
           
           // asking for the view passing background & plant to display
-          res.render("gameMode", { gameplay, currentBackground, currentPlant, css: ["game.css"] });
+          res.render("gameMode", { gameplay, /* currentBackground, */ currentPlant, TEST_MODE, css: ["game.css"] });
         }
         else {
           // no more cards to display
+          console.log(`--- NEXT to END - indexPlant: `, req.session.indexPlant);
+          console.log(`- playerLifeCurrent: `, req.session.playerLifeCurrent);
   
           const redirection = '/game/' + gameplay.mode + '/end';
-          res.redirect(redirection, { gameplay, css: ["game.css"] });
+          // res.redirect(redirection, { gameplay, css: ["game.css"] });
+          res.redirect(redirection);
         }
         
+      }
+      else if (gameplay.action === dataGame.ACTION_END) {
+
+
+        // getting the current player info in db based on session info
+        const currentPlayer = await PlayerModel.findById(
+          req.session.currentUser._id,
+          { plantsIdentified: 1, notEdibleIdentified: 1 }
+        );
+        console.log(`currentPlayer`, currentPlayer);
+
+        // going through the cardsToPlay in session to create the update
+        for (const card of req.session.cardsToPlay) {
+          // keeping only the plants correctly identified (good or bad)
+          if (card.isChoiceOk) {
+            if (card.isEdible) {
+              // looping through the currentPlayer edible plants identifed to check for existing plants
+              console.log(`--- card is a plant edible: card.plantId`, card.plantId);
+              if (!currentPlayer.plantsIdentified.length) {
+                console.log('new addition');
+                currentPlayer.plantsIdentified.push({plant: card.plantId, count: 1});
+              }
+              else {
+                let copied = JSON.parse(JSON.stringify(currentPlayer.plantsIdentified))
+                for (const edible of currentPlayer.plantsIdentified) {
+                  console.log(`edible.plant`, edible.plant);
+                  if (card.plantId.toString() === edible.plant.toString()) {
+                    console.log(`id found`, card.plantId);
+                    let cnt = edible.count++;
+                    copied.push({plant: card.plantId, count: cnt});
+                  }
+                  else {
+                    console.log(`id not found`, card.plantId);
+                    console.log('new addition');
+                    copied.push({plant: card.plantId, count: 1});
+                  }
+                }
+                currentPlayer.plantsIdentified = copied;
+              }
+              console.log(`--- currentPlayer (after)`, currentPlayer);
+            }
+            else  {
+              // plant both correctly identifed but NOT edible, it can be pushed to not edible array
+              console.log(`--- card is a plant NOT EDIBLE: card.plantId`, card.plantId);
+              if (!currentPlayer.notEdibleIdentified.length) {
+                console.log('new addition');
+                currentPlayer.notEdibleIdentified.push({plant: card.plantId, count: 1});
+              }
+              else {
+                let copied = JSON.parse(JSON.stringify(currentPlayer.notEdibleIdentified));
+                for (const notEdible of currentPlayer.notEdibleIdentified) {
+                  console.log(`notEdible.plant`, notEdible.plant);
+                  // const testPlant = currentPlayer.notEdibleIdentified.find()
+                  if (card.plantId.toString() === notEdible.plant.toString()) {
+                    console.log(`id found`, card.plantId);
+                    let cnt = notEdible.count++;
+                    copied.push({plant: card.plantId, count: cnt});
+                  }
+                  else {
+                    console.log(`id not found`, card.plantId);
+                    console.log('new addition');
+                    copied.push({plant: card.plantId, count: 1});
+                    console.log(`copied length`, copied.length);
+                    console.log(`currentPlayer.notEdibleIdentified length`, currentPlayer.notEdibleIdentified.length);
+                  }
+                }
+                currentPlayer.notEdibleIdentified = copied;
+              }
+              console.log(`--- currentPlayer (Not Edible, after)`, currentPlayer);
+            }
+          }
+        }
+        // - updating the player in dbaccording to what happened in game
+        const updated = await PlayerModel.findByIdAndUpdate(req.session.currentUser._id, currentPlayer, { new: true });
+        console.log(`updated`, updated);
+
+        // initializing the object to pass to the view
+        let viewedPlants = [];
+        for (const card of req.session.cardsToPlay) {
+          // getting info from db
+          const plant = await PlantModel.findById(card.plantId);
+          viewedPlants.push({ plant: plant, isChoiceOk: card.isChoiceOk})
+        }
+        console.log(`viewedPlants`, viewedPlants);
+        
+        res.render("gameEnd", { gameplay, viewedPlants });
       }
     }
     catch (error) {
@@ -254,31 +351,5 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
 
 });
 
-// - to display the recap screen when game ends
-router.get("/:modeId/end", protectPrivateRoute, (req, res, next) => {
-  const gameplay = {
-    mode: req.params.modeId,
-  };
-  /// A FINIR - BEGIN
-      // - update le player avec la plante (si pas déjà associée, ajout avec count = 1, sinon, count++)
-
-  /** upadate plantsIdentified in db for the player (after the recap array in session)
-        // get plantIdentified from player
-        // const innerFilter = 
-        const currentPlantsIdentified = await PlayerModel.findById(req.session.currentUser._id, innerFilter);
-   */
-  // - erase the finished gameplay in session
-  /// A FINIR - END
-  res.render("gameEnd", { gameplay, viewedPlants });
-});
-
-// - to display the screen depending on the stop (passing new background)
-router.get("/:modeId/:stepId", protectPrivateRoute, (req, res, next) => {
-  const gameplay = {
-    mode: req.params.modeId,
-    step: req.params.stepId,
-  };
-  res.render("gameMode", { gameplay, css: ["game.css"]  });
-});
 
 module.exports = router;

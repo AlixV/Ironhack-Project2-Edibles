@@ -1,4 +1,4 @@
-<h2>Content de ton périple ?</h2>
+<h2>Quel périple !</h2>
 
 
 <div id="mode-lifebar">
@@ -11,7 +11,7 @@
 <div id="game-recap">
 
   <div id="links-end">
-    <a href="/player/xxx">Voir ta collection</a>
+    <a href="/player">Voir ta collection</a>
     <a href="/game">Nouvelle partie</a>
   </div>
 
@@ -23,12 +23,14 @@
       </div>
       <div>
         {{#if this.isChoiceOk}}
-        <a href="/plant/{{this.plant._id}}/endgame">
+        <a href="/plant/{{this.plant._id}}/endgame{{gameplay.mode}}">
         {{/if}}
           <p>{{this.plant.commonName}}</p>
         {{#if this.isChoiceOk}}
         </a>
         {{/if}}
+
+        {{#if this.isChoiceOk}}
         <div><img src="/images/icons/check.svg" alt="success" class="icon"></div>
         {{else}}
         <div><img src="/images/icons/times.svg" alt="success" class="icon"></div>

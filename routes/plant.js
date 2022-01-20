@@ -3,6 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
+// helper
+const getFromRoute = require('./../helpers/getFromRoute');
+
 // require necessary models
 const PlantModel = require('./../models/Plant.model');
 
@@ -17,7 +20,7 @@ const PlantModel = require('./../models/Plant.model');
 router.get('/', async (req, res, next) => {
   const plants = await PlantModel.find();
   // console.log('----', plants);
-  res.render('plantAll', { plants });
+  res.render('plantAll', { plants, css: ["plants.css"]  });
 });
 
 // - to display one plant
@@ -27,7 +30,7 @@ router.get('/:plantId/:fromId', async (req, res, next) => {
   const fromRoute = getFromRoute(req.params.fromId);
   const plant = await PlantModel.findById(id);
   // console.log(`plant`, plant);
-  res.render('plantOne', { plant, fromRoute });
+  res.render('plantOne', { plant, fromRoute, css: ["plants.css"]  });
 });
 
 

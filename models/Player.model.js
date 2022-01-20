@@ -34,6 +34,15 @@ const playerSchema = new Schema({
       count: Number,
     },
   ],
+  notEdibleIdentified: [
+    {
+      plant: {
+        type: Schema.Types.ObjectId,
+        ref: "plant",
+      },
+      count: Number,
+    },
+  ],
   recipes: [
     {
       type: Schema.Types.ObjectId,

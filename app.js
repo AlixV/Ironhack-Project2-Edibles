@@ -27,6 +27,7 @@ app.use(
 	session({
 		secret:
 			process.env.SESSION_SECRET || "ASecretStringThatSouldBeHARDTOGUESS/CRACK",
+    cookie: { maxAge: 1000 * 60 * 60 }, // in millisec (1000 * 60 * 60 => 1 hour)
 		saveUninitialized: true,
 		resave: true,
 	})

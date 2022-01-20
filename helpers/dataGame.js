@@ -9,6 +9,9 @@ const dataGame = {
   ACTION_EAT: "eat",
   ACTION_LEAVE: "leave",
   ACTION_NEXT: "next",
+  ACTION_END: "end",
+  // option (use the spirit-plant chosen at registration to undie for one round)
+  ACTION_SPIRIT: "spirit",
 
   // messages after action
   MSG_SUCCESS_BEGINNING: "Bravo! Cette plante (",
@@ -24,7 +27,7 @@ const dataGame = {
   MSG_OOPS_END_LETHAL: ") est mortelle. Bye bye!",
 
   // cardsToPlay
-  BALADE_NB_CARDS: 15,
+  BALADE_NB_CARDS: 5,
   RANDO_NB_CARDS: 30,
   TREK_NB_CARDS: 45,
 
