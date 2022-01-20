@@ -46,8 +46,6 @@ router.get("/", protectPrivateRoute, async (req, res, next) => {
       .populate("plant")
       .populate("creator");
 
-    console.log("recipes to display :", recipesToDisplay);
-
     // Filter option : access the identified plants common name only once
     const plantsToDisplay = await PlantModel.find({
       _id: { $in: innerFilterArray },
@@ -186,7 +184,7 @@ router.get(
       res.render("recipeAdd.hbs", {
         plants: plantsToDisplay,
         fromRoute,
-        js: ["DOM-recipe.js"],
+        // js: ["DOM-recipe.js"],
       });
     } catch (error) {
       next(error);
@@ -203,10 +201,26 @@ router.post(
     try {
       // récuper payload axios dans req.body
       console.log(req.body);
-      const { name, durationMinutes, plant, otherIngredients, instructions } =
+
+      const { name, durationMinutes, plant, ingredients, instructions } =
         req.body;
       const creator = req.session.currentUser._id;
 
+      console.log(
+        "----------- otherIngredients before loop :>> ",
+        otherIngredients
+      );
+      // get the "other ingredients inputs" and eliminate the empty fields
+      otherIngredients.filter((ingredient) => {
+        if (ingredient === "") {
+          otherIngredients.splice(index, 1);
+        }
+      });
+
+      console.log(
+        "-------------- otherIngredients after loop :>> ",
+        otherIngredients
+      );
       // display flash message error if some required fields are missing
 
       if (!name || !durationMinutes || !plant || !instructions) {
@@ -222,6 +236,8 @@ router.post(
         instructions,
         creator,
       };
+
+      console.log(newRecipe);
 
       if (req.file) newRecipe.image = req.file.path;
 
