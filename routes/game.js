@@ -38,7 +38,7 @@ router.get("/", (req, res, next) => {
   // set indexPlant in req.session
   req.session.indexPlant = null;
   // render game home screen (mode choice)
-  res.render("gameHome", { links, css: ["game.css"] });
+  res.render("gameHome", { links, css: ["game-home.css"] });
 });
 
 // - to display the game rules (!!! NOT TO BE PROTECTED)

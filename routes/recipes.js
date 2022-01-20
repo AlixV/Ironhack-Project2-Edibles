@@ -326,8 +326,19 @@ router.post(
   uploader.single("image"),
   async (req, res, next) => {
     try {
-      const { name, durationMinutes, plant, otherIngredients, instructions } =
-        req.body;
+      const { name, durationMinutes, plant, instructions } = req.body;
+
+      let otherIngredients = req.body.otherIngredients;
+      let otherIngredientsClean = [];
+
+      // get the "other ingredients inputs" and eliminate the empty fields
+      otherIngredients.forEach((ingredient) => {
+        if (ingredient) {
+          otherIngredientsClean.push(ingredient);
+        }
+      });
+      otherIngredients = [...otherIngredientsClean];
+
       const newRecipe = {
         name,
         durationMinutes,
@@ -338,7 +349,7 @@ router.post(
 
       if (req.file) newRecipe.image = req.file.path;
       await RecipeModel.findByIdAndUpdate(req.params.recipeId, newRecipe);
-      res.redirect("/recipes/playerId");
+      res.redirect("/recipes");
     } catch (error) {
       next(error);
     }

@@ -9,7 +9,7 @@
     <label for="plant">Plante identifiée</label>
     <select name="plant" id="plant">
         {{#each plants}}
-        <option value="plant">{{this.commonName}}</option>
+        <option value="{{this._id}}">{{this.commonName}}</option>
         {{/each}}
     </select>
 
