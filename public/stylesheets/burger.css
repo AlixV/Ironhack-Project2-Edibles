@@ -1,10 +1,17 @@
 a {
   color: black;
   text-decoration: none;
+  padding: 10px;
 }
 
 a:hover {
+  border-radius: 12%;
   font-weight: bold;
+  background-color: var(--dark-green);
+}
+
+#nav-mobile a {
+  color: tomato;
 }
 
 #header-main {
