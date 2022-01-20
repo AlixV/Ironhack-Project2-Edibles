@@ -1,25 +1,30 @@
 /* CSS for GAME VIEWS */
 body {
-  padding: 0;
-  margin: 0;
+  background-color: var(--light-green);
 }
 
-/* START SCREEN
-#game-home a {
-  color: black;
-  /* text-decoration: none; 
-} */
+.container {
+  padding: 0;
+  padding-top: 1rem;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
 
 #link-modes {
   width: 100vw;
   height: 100vh;
-  background: url("/images/backgrounds/rando1.png") no-repeat center fixed;
-  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 50px;
+}
+
+.start-link:hover {
+  font-size: 2.6rem;
+  transition: 0.5s ease-in-out;
+  background-color: var(--lighter-green);
 }
 
 .start-link {
@@ -35,24 +40,82 @@ body {
 }
 
 /* PLAYING SCREEN */
-#game-play {
-  /* background-repeat: no-repeat; */
+#game-main {
   background-color: var(--light-green);
-  /* height: 80vh;
-  width: 100vw; */
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 150px 1fr 200px;
+  gap: 100px;
+}
+
+#mode-lifebar {
+  margin-top: 20px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  width: 30vw;
+  max-width: 800px;
+  min-width: 300px;
+  min-height: 100px;
+  text-align: center;
+  padding-bottom: 20px;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  justify-self: center;
+}
+
+#life{
+  size: 600px;
+}
+
+#mode-lifebar p {
+  font-family: "IBM Plex Mono";
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+#game-play {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  
 }
 
 #game-play #card {
-  background-color: rgba(255, 248, 220, .4);
-  height: 50%;
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #game-play #card img {
-  height: 25rem;
-  width: 25rem;
+  height: 30rem;
+  width: 30rem;
+  border-radius: 20px;
+  margin: 20px;
   object-fit: cover;
 }
+
+.choice-btn {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  font-family: "IBM Plex Mono";
+  font-size: 1.6rem;
+}
+
+
+.choice-btn:hover {
+  font-weight: bolder;
+  background-color: var(--dark-green);
+  color: white;
+}
+
 
 /* ================= */
 /* TEST_MODE - BEGIN */
@@ -64,6 +127,16 @@ body {
 /* TEST_MODE - END   */
 /* ================= */
 
+#answer-box {
+  font-family: Roboto;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#answ
 
 /* END SCREEN */
 #game-end img {
@@ -73,9 +146,21 @@ body {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .start-link {
     width: 80vw;
     font-size: 1.5rem;
+  }
+  #game-main {
+    grid-template-rows: 500px 170px;
+    gap: 50px;
+  }
+
+  #mode-lifebar {
+    grid-row: 2/3;
+  }
+
+  #game-play {
+    grid-row: 1/2;
   }
 }

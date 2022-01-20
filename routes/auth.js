@@ -40,7 +40,7 @@ router.post("/signup", async (req, res, next) => {
         console.log(`hashedPwd`, hashedPwd);
 
         // call the dicebear API to get a random avatar
-        const avatar = `https://avatars.dicebear.com/api/pixel-art-neutral/${newPlayer.pseudo}.svg`;
+        const avatar = `https://avatars.dicebear.com/api/pixel-art/${newPlayer.pseudo}.svg`;
         newPlayer.avatar = avatar;
 
         // Create new player un db :

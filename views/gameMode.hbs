@@ -1,34 +1,36 @@
 {{!-- <h2>Survivras-tu ?</h2> --}}
 
-<div id="mode-lifebar">
-  <div>
-    <p class="game-mode">{{gameplay.mode}}</p>
+<div id="game-main">
+  <div id="mode-lifebar">
+    <div>
+      <p class="game-mode">Tu es en {{gameplay.mode}}</p>
+    </div>
+    {{> lifebar}}
   </div>
-  {{> lifebar}}
-</div>
-
-<div id="game-play" style="background-image: url('{{currentBackground}}')">
-  <div id="card">
-    <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?">
-    {{#if TEST_MODE}}
-    <div id="TEST_MODE">
-        {{ currentPlant.commonName }}<br>
-        {{#if currentPlant.isEdible}}<img src="/images/icons/carrot.svg" alt="comestible">{{/if}}
-        {{#if currentPlant.isToxic}}<img src="/images/icons/ambulance.svg" alt="toxique">{{/if}}
-        {{#if currentPlant.isLethal}}<img src="/images/icons/flask-poison.svg" alt="mortelle">{{/if}}
+  
+  <div id="game-play" style="background-image: url('{{currentBackground}}')">
+    <div id="card">
+      <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?">
+      {{#if TEST_MODE}}
+      <div id="TEST_MODE">
+          {{ currentPlant.commonName }}<br>
+          {{#if currentPlant.isEdible}}<img src="/images/icons/carrot.svg" alt="comestible">{{/if}}
+          {{#if currentPlant.isToxic}}<img src="/images/icons/ambulance.svg" alt="toxique">{{/if}}
+          {{#if currentPlant.isLethal}}<img src="/images/icons/flask-poison.svg" alt="mortelle">{{/if}}
+      </div>
+      {{/if}}
+      {{#if gameplay.cardQuestionDisplay}}
+      <div id="question-box">
+        <a class="choice-btn" href="/game/{{gameplay.mode}}/eat">Mange-moi !</a>
+        <a class="choice-btn" href="/game/{{gameplay.mode}}/leave">Laisse-moi !</a>
+      </div>
+      {{/if}}
+      {{#if gameplay.cardAnswerDisplay}}
+      <div id="answer-box" >
+        <p>{{gameplay.message}}</p>
+        <a class="choice-btn" href="/game/{{gameplay.mode}}/next">Plante suivante</a>
+      </div>
+      {{/if}}
     </div>
-    {{/if}}
-    {{#if gameplay.cardQuestionDisplay}}
-    <div>
-      <a href="/game/{{gameplay.mode}}/eat">Mange-moi</a>
-      <a href="/game/{{gameplay.mode}}/leave">Laisse-moi</a>
-    </div>
-    {{/if}}
-    {{#if gameplay.cardAnswerDisplay}}
-    <div>
-      <p>{{gameplay.message}}</p>
-      <a href="/game/{{gameplay.mode}}/next">Plante suivante</a>
-    </div>
-    {{/if}}
   </div>
 </div>
