@@ -9,7 +9,6 @@
 
 <div id="game-play" style="background-image: url('{{currentBackground}}')">
   <div id="card">
-<<<<<<< Updated upstream
     <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?">
     {{#if TEST_MODE}}
     <div id="TEST_MODE">
@@ -19,10 +18,6 @@
         {{#if currentPlant.isLethal}}<img src="/images/icons/flask-poison.svg" alt="mortelle">{{/if}}
     </div>
     {{/if}}
-=======
-    <img src="{{currentPlant.imageUrl}}" alt="{{currentPlant.commonName}}">
-    {{!-- <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?"> --}}
->>>>>>> Stashed changes
     {{#if gameplay.cardQuestionDisplay}}
     <div>
       <a href="/game/{{gameplay.mode}}/eat">Mange-moi</a>
@@ -35,14 +30,5 @@
       <a href="/game/{{gameplay.mode}}/next">Plante suivante</a>
     </div>
     {{/if}}
-<<<<<<< Updated upstream
-=======
-    {{#if gameplay.cardAnswerDisplay}}
-    <div>
-      <p>{{gameplay.message}}</p>
-      <a href="/game/{{gameplay.mode}}/next">Plante suivante</a>
-    </div>
-    {{/if}}
->>>>>>> Stashed changes
   </div>
 </div>
