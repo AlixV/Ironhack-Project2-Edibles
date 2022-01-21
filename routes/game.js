@@ -203,6 +203,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
           gameplay.life = req.session.playerLifeMax;
         // - set message to display
         gameplay.message = impact.msg;
+        gameplay.classNameForMessage = impact.classNameForMsg;
         // - update the choice result for the card in session
         req.session.cardsToPlay[req.session.indexPlant].isChoiceOk =
           impact.isChoiceOk;
@@ -246,6 +247,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
       } else if (gameplay.action === dataGame.ACTION_NEXT) {
         // reset message to display
         delete gameplay.message;
+        delete gameplay.classNameForMessage;
 
         // finishing to prepare data for the view
         gameplay.maxLife = req.session.playerLifeMax;
@@ -266,7 +268,7 @@ router.get("/:modeId/:action", protectPrivateRoute, async (req, res, next) => {
         ) {
           // still some cards to display
           console.log(
-            `--- NEXT EAT/LEAVE - indexPlant: `,
+            `--- NEXT to EAT/LEAVE - indexPlant: `,
             req.session.indexPlant
           );
           console.log(`- playerLifeCurrent: `, req.session.playerLifeCurrent);
