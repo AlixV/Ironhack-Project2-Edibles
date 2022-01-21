@@ -1,17 +1,37 @@
 
-<form method="post" action="/player/update" id="updatePlayer">
+<section class="form-container">
 
-        <div class="form-item-wrapper flexed-item">
-            <label for="pseudo" class="label-ref label">Pseudo</label>
-            <input id="pseudo" name="pseudo" type="text" class="input-text input" required value={{player.pseudo}}>
-        </div>
-        
-        <div class="form-item-wrapper flexed-item">
-            <label for="password" class="label-ref label">Mot de passe</label>
-            <input id="password" name="password" type="password" class="input-text input" placeholder="mot de passe" required value="1234">
-        </div>
-        {{!--  Alix : DEMANDER L'ANCIEN MOT DE PASSE ??? --}}
-        
-        <button class="button-primary white">Modifier</button>
+    <div id="big-div">
+         <header class="form-header">
+          <h1 class="form-title">Modifie ton profil !</h1>
+      </header>
 
-     </form>
+        <form method="post" action="/player/update" id="updatePlayer">
+        
+            <div class="form-item-wrapper flexed-item">
+                <label for="pseudo" class="label-ref label">Pseudo</label>
+                <input id="pseudo" name="pseudo" type="text" class="input-text input" required value={{player.pseudo}}>
+            </div>
+    
+            <div class="form-item-wrapper flexed-item">
+                <label for="password" class="label-ref label">Mot de passe</label>
+                <input id="password" name="password" type="password" class="input-text input" placeholder="mot de passe" required value="1234">
+            </div>
+            {{!--  Alix : DEMANDER L'ANCIEN MOT DE PASSE ??? --}}
+    
+            <div>
+                <button class="button-primary white">Modifier</button>
+            </div>
+
+             <div class="pixel-container-flower">
+            {{!-- <img src="/images/pixelarts/peas-pixel.jpeg" alt="..."> --}}
+            <img src="/images/pixelarts/plant-pixel-mario.png" alt="fleur rouge">
+            {{!-- <img src="/images/pixelarts/leaves-pixel.jpeg" alt="..."> --}}
+          </div>
+
+        
+         </form>
+
+    </div>
+
+</section>

@@ -63,6 +63,7 @@ router.get("/update", protectPrivateRoute, (req, res) => {
   //const id = req.params.id; PAS UTILE BYE
   res.render("playerUpdate", {
     player: req.session.currentUser,
+    css: ["signup-in.css"], 
   });
 });
 
