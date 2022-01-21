@@ -1,18 +1,10 @@
-<h2>Le périple s'achève ici...</h2>
-
-
-{{!-- <div id="mode-lifebar">
-  <div>
-    <p class="game-mode">{{gameplay.mode}}</p>
-  </div>
-  {{> lifebar}}
-</div> --}}
-
 <div id="game-recap">
 
+  <h2>Ton périple s'achève ici...</h2>
+
   <div id="links-end">
-    <a href="/player">Voir ta collection</a>
-    <a href="/game">Nouvelle partie</a>
+    <a href="/player" class="choice-btn">Voir ta collection</a>
+    <a href="/game" class="choice-btn">Nouvelle partie</a>
   </div>
 
   <div id="plants">
@@ -28,11 +20,11 @@
         {{/if}}
       </div>
 
-      <div>
+      <div class="res-icons">
         {{#if this.isChoiceOk}}
-        <div><img src="/images/icons/check.svg" alt="success" class="icon"></div>
+        <div><img src="/images/icons/check.svg" alt="success" class="icon ok"></div>
         {{else}}
-        <div><img src="/images/icons/times.svg" alt="success" class="icon"></div>
+        <div><img src="/images/icons/times.svg" alt="success" class="icon nok"></div>
         {{/if}}
       </div>
     </div>

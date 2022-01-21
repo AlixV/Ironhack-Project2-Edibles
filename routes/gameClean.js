@@ -1,6 +1,7 @@
 // ====== TEST_MODE ================
 // - to display the answers in views
 const TEST_MODE = true;
+const TEST_LOGS = false;
 // =================================
 
 require("dotenv").config();
@@ -34,10 +35,7 @@ const isActionEatOrLeave = require("./../helpers/isActionEatOrLeave");
 // - to display the game home page (!!! NOT TO BE PROTECTED)
 router.get("/", cleanSessionFromPreviousGame, async (req, res, next) => {
   // check cleanSessionFromPreviousGame middleware work
-  console.log(
-    `/ --- check middleware work: req.session['game'] =`,
-    req.session["game"]
-  );
+  if (TEST_LOGS) console.log(`/ --- check middleware work: req.session['game'] =`, req.session['game']);
 
   // prepare data to display
   const links = {
@@ -53,39 +51,36 @@ router.get("/", cleanSessionFromPreviousGame, async (req, res, next) => {
 // - to display the game rules (!!! NOT TO BE PROTECTED)
 router.get("/rules", (req, res, next) => {
   // check cleanSessionFromPreviousGame middleware work
-  console.log(`/rules --- check: req.session['game'] =`, req.session["game"]);
-
+  if (TEST_LOGS) console.log(`/rules --- check: req.session['game'] =`, req.session['game']);
+  
   const rulesInfo = {
     baladeNbCards: dataGame.BALADE_NB_CARDS,
     randoNbCards: dataGame.RANDO_NB_CARDS,
     trekNbCards: dataGame.TREK_NB_CARDS,
   };
 
-  res.render("gameRules", { rulesInfo, css: "game.css" });
+  res.render("gameRules", { rulesInfo, css: "rules.css" });
 });
 
 // - to display the 1st game screen as question
 router.get("/:modeId/begin", protectPrivateRoute, async (req, res, next) => {
   // check cleanSessionFromPreviousGame middleware work
-  console.log(
-    `/:modeId/begin --- check: req.session['game'] =`,
-    req.session["game"]
-  );
-
+  if (TEST_LOGS) console.log(`/:modeId/begin --- check: req.session['game'] =`, req.session['game']);
+  
   try {
     // get some basic info from chosen mode
     const gameBasicInfo = getGameBasicInfo(req.params.modeId);
 
     // get random plants according to game mode
     const distribution = getCardsDistribution(gameBasicInfo.numOfCards);
-    console.log(`distribution`, distribution);
+    if (TEST_LOGS) console.log(`distribution`, distribution);
     // - getting the edible, toxic and lethal plants ids to fill the array of cardsToPlay
     const ediblePlants = await PlantModel.find({ isEdible: true }, { _id: 1 });
     const toxicPlants = await PlantModel.find({ isToxic: true }, { _id: 1 });
-    const lethalPlants = await PlantModel.find({ isLethal: true }, { _id: 1 });
-    console.log(`ediblePlants.length`, ediblePlants.length);
-    console.log(`toxicPlants.length`, toxicPlants.length);
-    console.log(`lethalPlants.length`, lethalPlants.length);
+    const lethalPlants = await PlantModel.find({ isLethal: true }, { _id: 1  });
+    if (TEST_LOGS) console.log(`ediblePlants.length`, ediblePlants.length);
+    if (TEST_LOGS) console.log(`toxicPlants.length`, toxicPlants.length);
+    if (TEST_LOGS) console.log(`lethalPlants.length`, lethalPlants.length);
     // - random selection of plants ids, respecting distribution, to fill the array of cardsToPlay
     const plantIdCards = getShuffledCardsArray(
       distribution,
@@ -103,8 +98,8 @@ router.get("/:modeId/begin", protectPrivateRoute, async (req, res, next) => {
       };
       cardsToPlay.push(plant);
     }
-    console.log(`cardsToPlay.length`, cardsToPlay.length);
-
+    if (TEST_LOGS) console.log(`cardsToPlay.length`, cardsToPlay.length);
+    
     // init game play in session
     req.session.game = {};
     // - game on
@@ -123,10 +118,7 @@ router.get("/:modeId/begin", protectPrivateRoute, async (req, res, next) => {
 
     // - for first plant to deal with
     req.session.game.indexPlant = 0;
-    console.log(
-      `--- begin --- req.session.game.indexPlant`,
-      req.session.game.indexPlant
-    );
+    if (TEST_LOGS) console.log(`--- begin --- req.session.game.indexPlant`, req.session.game.indexPlant);
     // - --- find in DB the first card in the array
     const currentPlant = await PlantModel.findById(
       req.session.game.cardsToPlay[req.session.game.indexPlant].plantId
@@ -160,10 +152,7 @@ router.get("/:modeId/begin", protectPrivateRoute, async (req, res, next) => {
 // - to display the game screen as question
 router.get("/:modeId/next", protectPrivateRoute, async (req, res, next) => {
   // check cleanSessionFromPreviousGame middleware work
-  console.log(
-    `/:modeId/next --- check middleware work: req.session['game'] =`,
-    req.session["game"]
-  );
+  if (TEST_LOGS) console.log(`/:modeId/next --- check middleware work: req.session['game'] =`, req.session['game']);
 
   try {
     // setting the action for treatment
@@ -190,21 +179,16 @@ router.get("/:modeId/next", protectPrivateRoute, async (req, res, next) => {
 
     if (isPlayerStillAlive && isCardLeftToDisplay) {
       // game still on
-      console.log(
-        `--- NEXT to EAT/LEAVE - game on - indexPlant: `,
-        gameSession.indexPlant
-      );
-      console.log(`- playerLifeCurrent: `, gameSession.playerLifeCurrent);
-
+      if (TEST_LOGS) console.log(`--- NEXT to EAT/LEAVE - game on - indexPlant: `, gameSession.indexPlant);
+      if (TEST_LOGS) console.log(`- playerLifeCurrent: `, gameSession.playerLifeCurrent);
+      
       // preparing for next plant info
       // - getting rid of previous plant
       delete gameSession.currentPlant;
 
       // get new plant info
-      const currentPlant = await PlantModel.findById(
-        gameSession.cardsToPlay[gameSession.indexPlant].plantId
-      );
-      console.log(`currentPlant`, currentPlant);
+      const currentPlant = await PlantModel.findById(gameSession.cardsToPlay[gameSession.indexPlant].plantId);
+      if (TEST_LOGS) console.log(`currentPlant`, currentPlant);
       gameSession.currentPlant = currentPlant;
 
       // feed the gameplay object for view display
@@ -225,11 +209,8 @@ router.get("/:modeId/next", protectPrivateRoute, async (req, res, next) => {
       });
     } else {
       // game over
-      console.log(
-        `--- NEXT to END - game over - indexPlant: `,
-        gameSession.indexPlant
-      );
-      console.log(`- playerLifeCurrent: `, gameSession.playerLifeCurrent);
+      if (TEST_LOGS) console.log(`--- NEXT to END - game over - indexPlant: `, gameSession.indexPlant);
+      if (TEST_LOGS) console.log(`- playerLifeCurrent: `, gameSession.playerLifeCurrent);
 
       const redirection = "/game/" + gameSession.mode + "/end";
       res.redirect(redirection);
@@ -243,10 +224,7 @@ router.get("/:modeId/next", protectPrivateRoute, async (req, res, next) => {
 // - to display the recap screen when game ends
 router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
   // check cleanSessionFromPreviousGame middleware work
-  console.log(
-    `/:modeId/end --- check middleware work: req.session['game'] =`,
-    req.session["game"]
-  );
+  if (TEST_LOGS) console.log(`/:modeId/end --- check middleware work: req.session['game'] =`, req.session['game']);
 
   try {
     // setting the action for treatment
@@ -260,7 +238,7 @@ router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
       req.session.currentUser._id,
       { plantsIdentified: 1, notEdibleIdentified: 1 }
     );
-    console.log(`currentPlayer`, currentPlayer);
+    if (TEST_LOGS) console.log(`currentPlayer`, currentPlayer);
 
     // creating a deep copy of cardsToPlay from session
     const cardsDisplayed = JSON.parse(JSON.stringify(gameSession.cardsToPlay));
@@ -284,18 +262,16 @@ router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
         cardsOk_NotEdible_StrIdOnly.push("911");
       }
     }
-    console.log(`cardsDisplayed`, cardsDisplayed);
-    console.log(`cardsOk_Edible_StrIdOnly`, cardsOk_Edible_StrIdOnly);
-    console.log(`cardsOk_NotEdible_StrIdOnly`, cardsOk_NotEdible_StrIdOnly);
+    if (TEST_LOGS) console.log(`cardsDisplayed`, cardsDisplayed);
+    if (TEST_LOGS) console.log(`cardsOk_Edible_StrIdOnly`, cardsOk_Edible_StrIdOnly);
+    if (TEST_LOGS) console.log(`cardsOk_NotEdible_StrIdOnly`, cardsOk_NotEdible_StrIdOnly);
 
     // first checking all edible plants formerly identified by the player
     if (currentPlayer.plantsIdentified.length > 0) {
       // going through all to update count when necessary
       for (const edible of currentPlayer.plantsIdentified) {
-        const idxFound = cardsOk_Edible_StrIdOnly.indexOf(
-          edible.plant.toString()
-        );
-        console.log(`${edible.plant.toString()} - idxFound:`, idxFound);
+        const idxFound = cardsOk_Edible_StrIdOnly.indexOf(edible.plant.toString());
+        if (TEST_LOGS) console.log(`${edible.plant.toString()} - idxFound:`, idxFound);
         if (idxFound !== -1) {
           // updating local currentPlayer
           edible.count++;
@@ -320,10 +296,8 @@ router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
     if (currentPlayer.notEdibleIdentified.length > 0) {
       // going through all to update count when necessary
       for (const notEdible of currentPlayer.notEdibleIdentified) {
-        const idxFound = cardsOk_NotEdible_StrIdOnly.indexOf(
-          notEdible.plant.toString()
-        );
-        console.log(`${notEdible.plant.toString()} - idxFound:`, idxFound);
+        const idxFound = cardsOk_NotEdible_StrIdOnly.indexOf(notEdible.plant.toString());
+        if (TEST_LOGS) console.log(`${notEdible.plant.toString()} - idxFound:`, idxFound);
         if (idxFound !== -1) {
           // updating local currentPlayer
           notEdible.count++;
@@ -350,7 +324,7 @@ router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
       currentPlayer,
       { new: true }
     );
-    console.log(`updated`, updated);
+    if (TEST_LOGS) console.log(`updated`, updated);
 
     // setting the gameplay from the session
     const gameplay = {
@@ -371,7 +345,7 @@ router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
       const plant = await PlantModel.findById(card.plantId);
       viewedPlants.push({ plant: plant, isChoiceOk: card.isChoiceOk });
     }
-    // console.log(`viewedPlants`, viewedPlants);
+    // if (TEST_LOGS) console.log(`viewedPlants`, viewedPlants);
 
     res.render("gameEnd", {
       gameplay,
@@ -386,15 +360,9 @@ router.get("/:modeId/end", protectPrivateRoute, async (req, res, next) => {
 });
 
 // - to display the game screen as answer
-router.get(
-  "/:modeId/:actionId",
-  protectPrivateRoute,
-  async (req, res, next) => {
+router.get("/:modeId/:actionId", protectPrivateRoute, async (req, res, next) => {
     // check cleanSessionFromPreviousGame middleware work
-    console.log(
-      `/:modeId/${req.params.actionId} --- check: req.session['game'] =`,
-      req.session["game"]
-    );
+    console.log(`/:modeId/${req.params.actionId} --- check: req.session['game'] =`, req.session["game"]);
 
     // setting the action for treatment
     const action = req.params.actionId;
@@ -407,17 +375,12 @@ router.get(
         const gameSession = req.session.game;
 
         // for safety, checking if indexPlant ok and if currentPlant exists in session
-        const isPlayerStillAlive =
-          gameSession.playerLifeCurrent > 0 ? true : false;
-        const isCardLeftToDisplay =
-          gameSession.indexPlant < gameSession.numOfCards ? true : false;
+        const isPlayerStillAlive = gameSession.playerLifeCurrent > 0 ? true : false;
+        const isCardLeftToDisplay = gameSession.indexPlant < gameSession.numOfCards ? true : false;
 
         if (isPlayerStillAlive && isCardLeftToDisplay) {
           // game still on
-          console.log(
-            `--- EAT/LEAVE to NEXT - game on - indexPlant: `,
-            gameSession.indexPlant
-          );
+          console.log(`--- EAT/LEAVE to NEXT - game on - indexPlant: `, gameSession.indexPlant);
           console.log(`- playerLifeCurrent: `, gameSession.playerLifeCurrent);
 
           // get current plant info from session
@@ -437,12 +400,10 @@ router.get(
           gameSession.message = impact.msg;
           gameSession.classNameForMessage = impact.classNameForMsg;
           // - update the choice result for the card in session
-          gameSession.cardsToPlay[gameSession.indexPlant].isChoiceOk =
-            impact.isChoiceOk;
+          gameSession.cardsToPlay[gameSession.indexPlant].isChoiceOk = impact.isChoiceOk;
 
           // - update the isEdible boolean in preparation of end game
-          gameSession.cardsToPlay[gameSession.indexPlant].isEdible =
-            currentPlant.isEdible;
+          gameSession.cardsToPlay[gameSession.indexPlant].isEdible = currentPlant.isEdible;
           // - update the display in session
           gameSession.cardQuestionDisplay = false;
           gameSession.cardAnswerDisplay = true;
@@ -459,34 +420,26 @@ router.get(
             classNameForMessage: gameSession.classNameForMessage,
           };
 
-          console.log(
-            `--- ${action} --- gameSession.indexPlant`,
-            gameSession.indexPlant
-          );
+          console.log(`--- ${action} --- gameSession.indexPlant`, gameSession.indexPlant);
 
           // calling the view with necessary info
-          res.render("gameMode", {
-            gameplay,
-            currentPlant,
-            TEST_MODE,
-            css: ["game.css"],
-          });
-        } else {
+          res.render("gameMode", { gameplay, currentPlant, TEST_MODE, css: ["game.css"] });
+        }
+        else {
           // game over
-          console.log(
-            `--- EAT/LEAVE to END - game over - indexPlant: `,
-            gameSession.indexPlant
-          );
+          console.log( `--- EAT/LEAVE to END - game over - indexPlant: `, gameSession.indexPlant);
           console.log(`- playerLifeCurrent: `, gameSession.playerLifeCurrent);
 
           const redirection = "/game/" + gameSession.mode + "/end";
           res.redirect(redirection);
         }
-      } else {
+      }
+      else {
         console.error(`Invalid action: ${action}`);
         throw new Error(`Invalid action: ${action}`);
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error(`/game/${req.params.modeId}/eat OR leave ---`, error);
       next(error);
     }

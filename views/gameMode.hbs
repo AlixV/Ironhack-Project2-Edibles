@@ -8,12 +8,11 @@
     {{> lifebar}}
   </div>
   
-  <div id="game-play" style="background-image: url('{{currentBackground}}')">
+  <div id="game-play">
     <div id="card">
       <img src="{{currentPlant.imageUrl}}" alt="Tu y as cru, vraiment ;) ?">
       {{#if TEST_MODE}}
       <div id="TEST_MODE">
-          {{ currentPlant.commonName }}<br>
           {{#if currentPlant.isEdible}}<img src="/images/icons/carrot.svg" alt="comestible">{{/if}}
           {{#if currentPlant.isToxic}}<img src="/images/icons/ambulance.svg" alt="toxique">{{/if}}
           {{#if currentPlant.isLethal}}<img src="/images/icons/flask-poison.svg" alt="mortelle">{{/if}}

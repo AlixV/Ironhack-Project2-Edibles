@@ -147,10 +147,62 @@ body {
 
 
 /* END SCREEN */
-#game-end img {
-  height: 15rem;
-  width: 15rem;
+#game-recap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game-recap h2 {
+  margin: 2rem auto 3rem;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 1rem 3rem;
+  font-size: 3rem;
+}
+
+#game-recap img {
+  height: 12rem;
+  width: 12rem;
   object-fit: cover;
+}
+
+#game-recap .icon.ok {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+}
+
+#game-recap .icon.nok {
+  height: 3rem;
+  width: 3rem;
+  object-fit: cover;
+}
+
+#game-recap #links-end {
+  margin: 3rem auto 5rem;
+}
+
+#game-recap #links-end .choice-btn {
+  font-family: "Roboto";
+}
+
+#game-recap #plants {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: auto 10rem;
+}
+#game-recap /* #plants */ .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 1rem;
 }
 
 
