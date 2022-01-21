@@ -71,7 +71,8 @@ form div {
 }
 
 #avatar-view {
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
+  padding-bottom: 20px;
 }
 
