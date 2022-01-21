@@ -8,12 +8,16 @@ const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
 
 // - Display the SIGNUP FORM
 router.get("/signup", protectAuthRoute, (req, res) => {
-  res.render("signup.hbs");
+  res.render("signup.hbs", {
+    css :["signup-in.css"],
+  });
 });
 
 // - Display the SIGNIN FORM
 router.get("/signin", protectAuthRoute, (req, res) => {
-  res.render("signin.hbs");
+  res.render("signin.hbs", {
+    css : ["signup-in.css"],
+  });
 });
 
 // // - REGISTER NEW PLAYER

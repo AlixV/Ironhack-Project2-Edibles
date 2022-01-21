@@ -33,24 +33,21 @@
        <div id="plant-container-list">
             {{#each player.plantsIdentified}}
                 <div class="plant-container">
-                    <a href="/plant/{{this.plant._id}}/player" ><img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}"></a>
-            
+                    <a href="/plant/{{this.plant._id}}/player" ><img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}"></a>            
                 </div>
             {{/each}}
         </div>
-            {{else}}
-                </br>
-                <p>Tu n'as pas encore de plantes à afficher</p>
-   </div>
-
+    {{else}}
+        </br>
+        <p>Tu n'as pas encore de plantes à afficher</p>
+    </div>
    {{/if}}
     
     {{!-- RECIPES  --}}
     
     <div id="add-recipe" >
         <h3>Ajouter une nouvelle recette</h3>
-        <a href="/recipes/addRecipe/player"><img  id="add-icon" src="/images/icons/cauldron.svg" alt="addarecipe-icon"></a>
-        
+        <a href="/recipes/addRecipe/player"><img  id="add-icon" src="/images/icons/cauldron.svg" alt="addarecipe-icon"></a>      
     </div>
     
     <div id="recipes-list">

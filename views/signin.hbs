@@ -1,24 +1,33 @@
 <section class="signin form-container">
-    <header class="form-header">
-        <h1 class="form-title">Welcome Back !</h1>
-    </header>
-    
-    {{> flashMessage}}  
-    {{!-- {{>flash_message}}
-  {{#if msg}}
-    <p class="message {{msg.status}}">{{msg.text}}</p>
-  {{/if}} --}}
+    <div id="big-div">
+      <header class="form-header">
+          <h1 class="form-title">Welcome Back !</h1>
+      </header>
+      
+      {{> flashMessage}}
+      {{!-- {{>flash_message}}
+        {{#if msg}}
+      <p class="message {{msg.status}}">{{msg.text}}</p>
+        {{/if}} --}}
+      <form method="post" action="/signin" id="form-user">
+          <div class="form-item-wrapper flexed-item">
+            <label for="email" class="label-ref label">Email</label>
+            <input id="email" type="email" name="email" class="input-text input" placeholder="brad.pitt@gmail.com" required value="Beyonce@gui.com">
+          </div>
+          <div class="form-item-wrapper flexed-item">
+            <label for="password" class="label-ref label">Mot de passe</label>
+            <input id="password" type="password"  name="password" class="input-text input" placeholder="mot de passe" required value="1234">
+          </div>
+          <div>
+            <button class="button-primary white">Se connecter</button>
+          </div>
 
-    <form method="post" action="/signin" id="form-user">
-        <div class="form-item-wrapper flexed-item">
-          <label for="email" class="label-ref label">Email</label>
-          <input id="email" type="email" name="email" class="input-text input" placeholder="brad.pitt@gmail.com" required value="Beyonce@gui.com">
-        </div>
-        <div class="form-item-wrapper flexed-item">
-          <label for="password" class="label-ref label">Mot de passe</label>
-          <input id="password" type="password"  name="password" class="input-text input" placeholder="mot de passe" required value="1234">
-        </div>
-        <button class="button-primary white">Se connecter</button>
-    </form>
+          <div class="pixel-container">
+            <img src="/images/pixelarts/fleur-pixel-mario-bleue.jpeg" alt="fleur bleue">
+            <img src="/images/pixelarts/champi-pixel-mario-green.png" alt="champignon">
+            <img src="/images/pixelarts/fleur-pixel-mario-red.png" alt="fleur rouge">
+          </div>
+      </form>
+    </div>
 
 </section>  
