@@ -37,6 +37,8 @@ p > a:hover {
 
 .plant-container img {
   width: 100px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 20px;
 }
 
