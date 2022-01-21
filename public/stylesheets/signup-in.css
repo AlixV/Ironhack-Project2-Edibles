@@ -47,8 +47,7 @@ form {
 }
 
 form div {
-  padding-top: 15px;
-  font-weight: 600;
+  padding-top: 12px;
 }
 
 .button-primary {
@@ -56,7 +55,7 @@ form div {
   border: 2px solid black;
   border-radius: 20px;
   text-align: center;
-  padding: 5px 10px 5px 10px;
+  padding: 5px;
 }
 
 .button-primary:hover {
@@ -65,8 +64,14 @@ form div {
 }
 
 .pixel-container img {
-  margin-top: 20px;
+  margin-top: 15px;
   width: 70px;
   height: 70px;
   object-fit: cover;
 }
+
+#avatar-view {
+  height: 280px;
+  width: 280px;
+}
+
