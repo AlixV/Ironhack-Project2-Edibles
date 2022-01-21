@@ -315,6 +315,7 @@ router.get("/edit/:recipeId", protectPrivateRoute, async (req, res, next) => {
       recipe: recipeToEdit,
       plants: plantsToDisplay,
       otherIngredientsDisplay,
+      css: ["recipes.css"],
     });
   } catch (error) {
     next(error);

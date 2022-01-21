@@ -1,4 +1,4 @@
-<div>
+<div id="edit-recipe-main">
     <form action="/recipes/edit/{{recipe._id}}" method="post" enctype="multipart/form-data">
     <label for="name">Nom de la recette</label>
     <input type="text" id="name" name="name" value="{{recipe.name}}">
@@ -9,7 +9,7 @@
     <label for="plant">Plante identifiée</label>
     <select name="plant" id="plant">
         {{#each plants}}
-        <option value="{{this._id}}">{{this.commonName}}</option>
+        <option class="plant-option" value="{{this._id}}">{{this.commonName}}</option>
         {{/each}}
     </select>
 
@@ -24,12 +24,12 @@
         <input type="text" name="otherIngredients">
 
     <label for="instructions">Instructions</label>
-    <input type="text" id="instructions" name="instructions" value="{{recipe.instructions}}">
+    <textarea id="instructions" name="instructions" rows="5" cols="60"></textarea>
     
     <label for="image">Téléchargez une nouvelle image</label>
     <input type="file" id="image" name="image">
 
-    <button>Enregistrez vos modifications</button>
+    <button id="submit-edit-form">Enregistrez vos modifications</button>
 
     </form>
 </div>

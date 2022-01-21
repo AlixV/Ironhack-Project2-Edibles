@@ -1,44 +1,45 @@
 {{!-- Display the details of a recipe --}}
-<div>
+<div id="one-recipe-main">
 
     <div id="recipe-title">
         <h2>{{recipe.name}}</h2> 
     </div>
 
     {{#if creator}}
-        <a href="/recipes/delete/{{recipe._id}}">
-            <img src="/images/icons/trash-alt.svg" alt="trash-icon">
-        </a>
-        <a href="/recipes/edit/{{recipe._id}}">
-            <img src="/images/icons/pencil.svg" alt="edit-icon">
-        </a>
+        <div id="one-recipe-top-links">
+            <a href="/recipes/delete/{{recipe._id}}">
+                <img src="/images/icons/trash-alt.svg" alt="trash-icon">
+            </a>
+            <a href="/recipes/edit/{{recipe._id}}">
+                <img src="/images/icons/pencil.svg" alt="edit-icon">
+            </a>
     {{/if}}
+            <a href="{{fromRoute}}"><img src="/images/icons/times.svg" alt="close icon"></a>
+        </div>
 
-    <section id="back-link">
-        <a href="{{fromRoute}}">Fermer</a>
-    </section>  
-    <img src="{{recipe.image}}" alt="">
-
+<div id="recipe-card">
+    <div id="recipe-card-top">
+        <div id="recipe-image-container"><img src="{{recipe.image}}" alt="recipe image" id="recipe-image"></div>
+        
+        <div>
+            <p><strong>Recette ajoutée par {{recipe.creator.pseudo}}</strong></p>
+            <p>Durée: {{recipe.durationMinutes}} minutes</p>
+        </div>
+    </div>
+    
+    <div id="recipe-core">
+        <h4>Ingrédients</h4>
+        <ul>
+            <li>{{recipe.plant.commonName}}</li>
+            {{#each recipe.otherIngredients}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        <br>
+        <h4>Préparation</h4>
+        <p>{{recipe.instructions}}</p>
+        <p>Bon appétit !</p>
+    </div>
 </div>
 
-<div>
-    <p>Recette ajoutée par {{recipe.creator.pseudo}}</p>
-    <p>Durée: {{recipe.durationMinutes}} minutes</p>
 </div>
-
-<div>
-    <h4>Ingrédients</h4>
-    <ul>
-        <li>{{recipe.plant.commonName}}</li>
-        {{#each recipe.otherIngredients}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul>
-</div>  
-
-<div>
-    <h4>Préparation</h4>
-    <p>{{recipe.instructions}}</p>
-    <p>Bon appétit !</p>
-</div>
-
