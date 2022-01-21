@@ -1,0 +1,29 @@
+body {
+    background-image: url("/images/backgrounds/rando1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+  } 
+  
+#container {
+    padding: 0;
+    padding-top: 1rem;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+  
+#rules-main-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid black;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+#rules-main-container h2 {
+    font-size: 3rem;
+}
+
+  

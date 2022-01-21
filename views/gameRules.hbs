@@ -1,48 +1,48 @@
-
-
-<h1> Comment jouer ? </h1>
-
-<div id="rules-intro">
-    <p> Part sur les sentiers à la découverte d'une multitude de plantes plus ou moins connues, et surtout, plus ou moins comestibles... !
-À toi de choisir lesquelles manger pour survivre.
-     </p>
-</div>
-
-
-<div id="rules-mode">
-    <h3> >> Sélectionne le mode de jeu </h3>
-    <p> Il correspond au nombre de plantes qu'il te faudra identifier. </br> En fonction de ton énergie, pars pour une petite balade, une bonne rando, ou carément un trek ! <br> Tu découvriras la flore autour de toi. </p>
-     {{!-- <br> 
-        En fonction du mode de jeu sélectionné tu deveras manger un minimum de plantes par partie pour ne pas mourir de faim ! --}}
-    {{!-- <ul>
-        <li> Mode Balade : {{rulesInfo.baladeNbCards}} cartes </li>
-        <li> Mode Rando : {{rulesInfo.randoNbCards}} cartes </li> 
-        <li> Mode Trek : {{rulesInfo.trekNbCards}} cartes </li>  
-    </ul>
-</div> --}}
-
-<div id="eat">
-    <h3> >> Mangez</h3>
-    <p> Manger une plante, c'est découvrir si celle-ci est comestible, toxique ou létale : </p>
-        <ul>
-            <li> > Comestible : Tu gagnes des forces. </li>
-            <li> > Toxique : Tu perds des forces.</li>
-            <li> > Mortelle : Sorry, fin de partie pour toi ! </li>
+<div id="rules-main-container">
+    <h2> Comment jouer ? </h2>
+    
+    <div id="rules-intro">
+        <p> Part sur les sentiers à la découverte d'une multitude de plantes plus ou moins connues, et surtout, plus ou moins comestibles... !
+    À toi de choisir lesquelles manger pour survivre.
+         </p>
+    </div>
+    
+    
+    <div id="rules-mode">
+        <h3> >> Sélectionne le mode de jeu </h3>
+        <p> Il correspond au nombre de plantes qu'il te faudra identifier. </br> En fonction de ton énergie, pars pour une petite balade, une bonne rando, ou carément un trek ! <br> Tu découvriras la flore autour de toi. </p>
+         {{!-- <br>
+            En fonction du mode de jeu sélectionné tu deveras manger un minimum de plantes par partie pour ne pas mourir de faim ! --}}
+        {{!-- <ul>
+            <li> Mode Balade : {{rulesInfo.baladeNbCards}} cartes </li>
+            <li> Mode Rando : {{rulesInfo.randoNbCards}} cartes </li>
+            <li> Mode Trek : {{rulesInfo.trekNbCards}} cartes </li>
         </ul>
-</div>
-
-<div id="discard">
-    <h3> >> Jeter</h3>
-    <p> L'autre option, c'est de laisser la plante sur le bas-côté. </p>
-        <ul>
-            <li> > Si elle était comestible, tu ne risques pas grand chose, mais attention, à force de ne rien manger, tu vas perdre des forces… et peut-être la partie.</li>
-            <li> > Si elle était toxique ou mortelle, bravo pour ce choix avisé.</li> 
-        </ul>
-</div>
-
-<div id="plantCollection">
-    <h3> >> Collection de plantes</h3>
-    <p> Si à trois reprises tu identifies correctement une plante (qu'elle soit comestible, toxique ou mortelle), <br> elle va s’ajouter à ta collection de plantes et tu pourras consulter la fiche associée. <br> Tu pourras aussi voir les recettes associées aux plantes comestibles, et ajouter les tiennes !</p>
+    </div> --}}
+    
+    <div id="eat">
+        <h3> >> Mangez</h3>
+        <p> Manger une plante, c'est découvrir si celle-ci est comestible, toxique ou létale : </p>
+            <ul>
+                <li> > Comestible : Tu gagnes des forces. </li>
+                <li> > Toxique : Tu perds des forces.</li>
+                <li> > Mortelle : Sorry, fin de partie pour toi ! </li>
+            </ul>
+    </div>
+    
+    <div id="discard">
+        <h3> >> Jeter</h3>
+        <p> L'autre option, c'est de laisser la plante sur le bas-côté. </p>
+            <ul>
+                <li> > Si elle était comestible, tu ne risques pas grand chose, mais attention, à force de ne rien manger, tu vas perdre des forces… et peut-être la partie.</li>
+                <li> > Si elle était toxique ou mortelle, bravo pour ce choix avisé.</li>
+            </ul>
+    </div>
+    
+    <div id="plantCollection">
+        <h3> >> Collection de plantes</h3>
+        <p> Si à trois reprises tu identifies correctement une plante (qu'elle soit comestible, toxique ou mortelle), <br> elle va s’ajouter à ta collection de plantes et tu pourras consulter la fiche associée. <br> Tu pourras aussi voir les recettes associées aux plantes comestibles, et ajouter les tiennes !</p>
+    </div>
 </div>
 
 {{!-- (mangées lorsque comestibles et jetées lorsque toxiques ou mortelle) --}}
