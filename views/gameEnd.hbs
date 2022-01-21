@@ -19,17 +19,16 @@
     {{#each viewedPlants}}
     <div class="card">
       <div>
-        <img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}" class="plant-img">
-      </div>
-      <div>
         {{#if this.isChoiceOk}}
         <a href="/plant/{{this.plant._id}}/endgame{{gameplay.mode}}">
         {{/if}}
-          <p>{{this.plant.commonName}}</p>
+          <img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}" class="plant-img">
         {{#if this.isChoiceOk}}
         </a>
         {{/if}}
+      </div>
 
+      <div>
         {{#if this.isChoiceOk}}
         <div><img src="/images/icons/check.svg" alt="success" class="icon"></div>
         {{else}}
