@@ -60,8 +60,8 @@ const playerRouter = require('./routes/player');
 app.use('/player', playerRouter);
 
 // - game routes
-// const gameRouter = require('./routes/gameClean');
-const gameRouter = require('./routes/game');
+const gameRouter = require('./routes/gameClean');
+// const gameRouter = require('./routes/game');
 app.use('/game', gameRouter);
 
 // - plant routes
