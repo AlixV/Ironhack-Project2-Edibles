@@ -1,45 +1,47 @@
-<h2>Plante - Détail</h2>
-
-<section id="info-basic">
-  <h3>{{plant.commonName}}</h3>
-  <img src="{{plant.imageUrl}}" alt="{{plant.commonName}}">
-</section>
-
-<section id="info-science">
-  <p><em>{{plant.scientificName}}</em></p>
-  <p><em>{{plant.family}}</em></p>
-  <p><strong>Zone(s) géographique(s) : </strong>{{plant.geographicalAreas}}</p>
-</section>
-
-<section id="info-edible">
-  <table>
-    <thead>
-      <tr>
-        <th>Comestible</th>
-        <th>Toxique</th>
-        <th>Létale</th>
-      </tr>
-      <tr>
-        <td>{{#if plant.isEdible}}<img src="/images/icons/carrot.svg" alt="comestible">{{/if}}</td>
-        <td>{{#if plant.isToxic}}<img src="/images/icons/ambulance.svg" alt="toxique">{{/if}}</td>
-        <td>{{#if plant.isLethal}}<img src="/images/icons/flask-poison.svg" alt="mortelle">{{/if}}</td>
-      </tr>
-    </thead>
-  </table>
-  <div>
-    {{#if plant.isEdible}}
-    <p><strong>Parties comestibles : </strong></p>
-    <p>{{plant.edible_parts}}</p>
-    {{/if}}
+<div id="one-plant-main">  
+  <section id="info-basic">
+    <h2>{{plant.commonName}}</h3>
+    <img src="{{plant.imageUrl}}" alt="{{plant.commonName}}">
+  </section>
+  
+  <div id="plant-info">
+    <section id="info-science">
+      <p>Nom scientifique : <em>{{plant.scientificName}}</em></p>
+      <p>Famille : <em>{{plant.family}}</em></p>
+      <p><strong>Zone(s) géographique(s) : </strong>{{plant.geographicalAreas}}</p>
+    </section>
+    
+    <section id="info-edible">
+      <table>
+        <thead>
+          <tr>
+            <th>Ça se mange ?</th>
+            {{!-- <th>Toxique</th>
+            <th>Létale</th> --}}
+          </tr>
+          <tr>
+            <td>{{#if plant.isEdible}}<img src="/images/icons/carrot.svg" alt="comestible">{{/if}}</td>
+            <td>{{#if plant.isToxic}}<img src="/images/icons/ambulance.svg" alt="toxique">{{/if}}</td>
+            <td>{{#if plant.isLethal}}<img src="/images/icons/flask-poison.svg" alt="mortelle">{{/if}}</td>
+          </tr>
+        </thead>
+      </table>
+      <div>
+        {{#if plant.isEdible}}
+        <p><strong>Parties comestibles : </strong></p>
+        <p>{{plant.edible_parts}}</p>
+        {{/if}}
+      </div>
+    </section>
+    
+    <section id="info-other">
+      <p><strong>Autres usages :</strong></p>
+      <p>{{plant.otherUses}}</p>
+    </section>
+    
   </div>
-</section>
-
-<section id="info-other">
-  <p><strong>Autres usages :</strong></p>
-  <p>{{plant.otherUses}}</p>
-</section>
-
-<section id="back-link">
-  <a href="{{fromRoute}}">Fermer</a>
-</section>
+    <section id="back-link">
+      <a href="{{fromRoute}}">Fermer</a>
+    </section>
+</div>
 
