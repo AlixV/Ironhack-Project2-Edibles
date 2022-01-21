@@ -21,6 +21,8 @@ body {
     height: 100vh;
 }
 
+/* *** RECIPES LIST *** */
+
 #recipes-container {
     display: flex;
     flex-direction: column;
@@ -88,6 +90,7 @@ body {
     max-width: 10%;
 }
 
+
 #add-new-recipe {
     display: flex;
     flex-direction: column;
@@ -120,8 +123,13 @@ body {
 }
 
 .recipe-list-icon {
-    width: 30px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 20px;
 }
+
+/* *** RECIPES ADD FORM *** */
 
 #add-form-main {
     display: flex;
@@ -129,18 +137,42 @@ body {
     align-items: center;
 }
 
+#add-form-title {
+    margin: 20px;
+    text-align: center;
+}
+
 #add-form-title h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+
+#add-form-title a {
+    font-family: Roboto;
+    font-size: 1.8rem;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 #add-form-container form{
     font-family: roboto;
     font-size: 2rem;
+    font-weight: 700;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 40vw;
-    gap: 10px
+    gap: 20px;
+    margin-top: 20px
 }
 
 #add-form-container form label, input {
@@ -148,11 +180,58 @@ body {
     text-align: center;
 }
 
+.plant-option {
+    font-family: roboto;
+    font-size: 2rem;
+    width: 60vw;
+    border-radius: 10px;
+}
+
 #add-form-container form input {
     border-radius: 10px;
     height: 3rem;
     font-size: 2rem;
 }
+
+#instructions {
+    width: 60vw;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#image-upload-box {
+    text-align: center;
+}
+
+#submit-create-form {
+    padding: 10px;
+    margin-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    border-radius: 20px;
+    font-family: roboto;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#submit-create-form:hover {
+    font-size: 2.2rem;
+    transition: 00.5s ease-in-out;
+}
+
+/* *** DISPLAY ONE RECIPE *** */
+
+#recipe-title {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid black;
+    border-radius: 0px;
+    padding: 10px;
+}
+
+#recipe-title h2 {
+    font-size: 3rem;
+}
+
 
 @media(max-width : 600) {
     #add-form-container form label, input {
