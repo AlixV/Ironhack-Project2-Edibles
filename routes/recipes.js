@@ -140,6 +140,7 @@ router.get(
         recipe: recipeToDisplay,
         creator,
         fromRoute,
+        css: ["recipes.css"],
       });
     } catch (error) {
       next(error);
@@ -184,6 +185,7 @@ router.get(
       res.render("recipeAdd.hbs", {
         plants: plantsToDisplay,
         fromRoute,
+        css: ["recipes.css"],
         // js: ["DOM-recipe.js"],
       });
     } catch (error) {

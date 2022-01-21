@@ -116,6 +116,15 @@ body {
   color: white;
 }
 
+.answer-success {
+  color: var(--dark-green)
+}
+.answer-failure {
+  color: var(--orange)
+}
+.answer-death {
+  color: var(--red)
+}
 
 /* ================= */
 /* TEST_MODE - BEGIN */
@@ -136,7 +145,6 @@ body {
   text-align: center;
 }
 
-#answ
 
 /* END SCREEN */
 #game-end img {

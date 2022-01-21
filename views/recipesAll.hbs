@@ -1,53 +1,52 @@
-{{!-- Display all recipes available to the player --}}
-
-<h2>Bonjour {{player.pseudo}}</h2>
-
-{{#if plants}}
-
-<h3>Qu'est ce qu'on mange ce soir ?</h3>
-
-{{!-- filter available recipes by plant --}}
-<div>
-    {{!-- <label for="plant">Choisir une plante</label>
-    <select name="plant" id="plant">
-            <option value=""></option>
-            {{#each plants}}
-                <option value="{{this._id}}">{{this.commonName}}</option>
-            {{/each}}
-    </select> --}}
-    <form id="filter-form">
-        <ul id="plants-checkbox-filter">
-            {{#each plants}}
-                <li class="plant-checkbox-item">
-                    <label for="input_{{this._id}}">{{this.commonName}}</label>
-                    <input type="checkbox" name="plants" value="{{this._id}}" id="input_{{this._id}}" class="checkbox">
-                </li>
-            {{/each}}
-        </ul>
-    </form>
-</div>
-
-{{!-- add a new recipe --}}
-<div>
-    <h3>Ajouter une nouvelle recette</h3>
-    <a href="/recipes/addRecipe/recipes">"Add" icon here</a>
-    {{!-- <img src="/images/icons/cauldron.svg" alt="addarecipe-icon"> --}}
-</div>
-
-{{!-- list of recipes --}}
-<div id="recipes-list">
-    {{#each recipe}}
-        <div class="recipe-list-card">
-            <a href="/recipes/one/{{this._id}}/recipes">
-            {{> recipeOneList}}
-            <p>Auteur: {{this.creator.pseudo}}</p>
+<div id="recipes-container">
+    {{!-- Display all recipes available to the player --}}
+    
+    <div id="recipes-title">
+        <h2>Bonjour {{player.pseudo}}</h2>
+    
+    {{#if plants}}
+    
+    <h3>Qu'est ce qu'on mange ce soir ?</h3>
+    </div>
+    
+    {{!-- filter available recipes by plant --}}
+    <div class="filter-addrecipe">
+        <form id="filter-form">
+            <h4>Filtrer les recettes par plante</h4>
+            <div id="plants-checkbox-filter">
+                {{#each plants}}
+                    <div class="plant-checkbox-item">
+                        <div><input type="checkbox" name="plants" value="{{this._id}}" id="input_{{this._id}}" class="checkbox"></div>
+                        <div><label for="input_{{this._id}}">{{this.commonName}}</label></div>
+                    </div>
+                {{/each}}
+            </div>
+        </form>
+    
+    {{!-- add a new recipe --}}
+        <div>
+            <a href="/recipes/addRecipe/recipes">
+                <div id='add-new-recipe'>
+                <h3>Ajouter une nouvelle recette</h3>
+                <img id="add-icon" src="/images/icons/cauldron.svg" alt="addarecipe-icon">
+                </div>
             </a>
         </div>
-    {{/each}}
+    </div>
+    
+    {{!-- list of recipes --}}
+    <div id="recipes-list">
+        {{#each recipe}}
+            <div class="recipe-list-card">
+                <a href="/recipes/one/{{this._id}}/recipes">
+                {{> recipeOneList}}
+                <p>Auteur: {{this.creator.pseudo}}</p>
+                </a>
+            </div>
+        {{/each}}
+    </div>
+        
+    {{else}}
+        <h3>Désolée, tu dois identifier des plantes comestibles pour pouvoir accéder aux recettes !</h3>
+    {{/if}}
 </div>
-
-<a href="/player">Accède à ton profil</a>
-
-{{else}}
-    <h3>Désolée, tu dois identifier des plantes comestibles pour pouvoir accéder aux recettes !</h3>        
-{{/if}}

@@ -1,52 +1,54 @@
-<div>
-    <h2>Ajoutez une nouvelle recette</h2>
-</div>
-{{> flashMessage}} 
-<section id="back-link">
-        <a href="{{fromRoute}}">Fermer</a>
-</section>  
-
-<div>
-    <form action="/recipes/addRecipe" method="post" enctype="multipart/form-data">
-        <label for="name">Nom de la recette</label>
-        <input type="text" id="name" name="name">
-        
-        <label for="prepTime">Durée de préparation</label>
-        <input type="number" id="prepTime" min="0" name="durationMinutes">
-        
-        <label for="plant">Plante comestible</label>
-        <select name="plant" id="plant" multiple>
-            {{#each plants}}
-                <option value="{{this._id}}">{{this.commonName}}</option>
-            {{/each}}
-        </select>
-
-        <label for="otherIngredients">Autres ingrédients</label>
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        <input type="text" name="otherIngredients">
-        {{!-- add button to ad new ingredient and clear input field --}}
-        {{!-- addeventlistener on BTN => axios post to add the input value a list below--}}
-        
-        {{!-- ATTENTION CHANGER DESTINATION DU HREF --}}
-        {{!-- <button id="add-new-ingredient">Ajouter</button> --}}
-
-        <ul id="new-ingredients-list"></ul>
-        
-        <label for="instructions">Instructions</label>
-        <input type="text" id="instructions" name="instructions" size="60">
-
-        <label for="image">Télécharger une image</label>
-        <input type="file" id="image" name="image">
-
-        <button id="submit-create-form">Créer la recette</button>
-       
-     </form>
+<div id="add-form-main">
+    <div id="add-form-title">
+        <h2>Ajoutez une nouvelle recette</h2>
+    {{> flashMessage}}
+    <section id="back-link">
+            <a href="{{fromRoute}}">Fermer</a>
+    </section>
+    </div>
+    
+    <div id="add-form-container">
+        <form action="/recipes/addRecipe" method="post" enctype="multipart/form-data">
+            <label for="name">Nom de la recette</label>
+            <input type="text" id="name" name="name">
+    
+            <label for="prepTime">Durée de préparation</label>
+            <input type="number" id="prepTime" min="0" name="durationMinutes">
+    
+            <label for="plant">Plante comestible</label>
+            <select name="plant" id="plant" multiple>
+                {{#each plants}}
+                    <option value="{{this._id}}">{{this.commonName}}</option>
+                {{/each}}
+            </select>
+    
+            <label for="otherIngredients">Autres ingrédients</label>
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            <input type="text" name="otherIngredients">
+            {{!-- add button to ad new ingredient and clear input field --}}
+            {{!-- addeventlistener on BTN => axios post to add the input value a list below--}}
+    
+            {{!-- ATTENTION CHANGER DESTINATION DU HREF --}}
+            {{!-- <button id="add-new-ingredient">Ajouter</button> --}}
+    
+            <ul id="new-ingredients-list"></ul>
+    
+            <label for="instructions">Instructions</label>
+            <textarea id="instructions" name="instructions" rows="5" cols="60"></textarea>
+    
+            <label for="image">Télécharger une image</label>
+            <input type="file" id="image" name="image">
+    
+            <button id="submit-create-form">Créer la recette</button>
+    
+         </form>
+    </div>
 </div>

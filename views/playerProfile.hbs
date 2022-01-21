@@ -33,7 +33,7 @@
        <div id="plant-container-list">
             {{#each player.plantsIdentified}}
                 <div class="plant-container">
-                    <a href="/{{this.plant._id}}/player" ><img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}"></a>
+                    <a href="/plant/{{this.plant._id}}/player" ><img src="{{this.plant.imageUrl}}" alt="{{this.plant.commonName}}"></a>
             
                 </div>
             {{/each}}

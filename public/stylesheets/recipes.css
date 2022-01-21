@@ -1,5 +1,161 @@
 /* CSS for RECIPES VIEWS */
+/* 
+body {
+    background-color: var(--dark-green);
+} */
+
+body {
+    background-image: url("/images/backgrounds/rando5.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    background-attachment: fixed;
+  } 
+  
+
+#container {
+    padding: 0;
+    padding-top: 1rem;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#recipes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#recipes-title {
+    text-align: center;
+}
+#recipes-title h2 {
+    font-size: 3.5rem;
+}
+#recipes-title h3 {
+    font-size: 2.5rem;
+}
+
+.filter-addrecipe {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 2.1rem;
+    font-family: roboto;
+    width: 60vw;
+}
+
+#filter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40%;
+}
+
+#plants-checkbox-filter {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plant-checkbox-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.plant-checkbox-item div {
+    width: 100% ;
+}
+
+.plant-checkbox-item div:first-child {
+    width: 40%;
+    padding-right: 10px;
+    padding-left: 0;
+    margin-left: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.plant-checkbox-item .checkbox {
+    max-width: 10%;
+}
+
+#add-new-recipe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add-icon {
+    width: 8rem;
+}
+
+#recipes-list {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px
+}
+
+.recipe-list-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-family: roboto;
+}
 
 .recipe-list-icon {
-    width: 20px;
+    width: 30px;
+}
+
+#add-form-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add-form-title h2 {
+    font-size: 2.5rem;
+}
+
+#add-form-container form{
+    font-family: roboto;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    gap: 10px
+}
+
+#add-form-container form label, input {
+    width: 60vw;
+    text-align: center;
+}
+
+#add-form-container form input {
+    border-radius: 10px;
+    height: 3rem;
+    font-size: 2rem;
+}
+
+@media(max-width : 600) {
+    #add-form-container form label, input {
+        width: 90vw;
+    }
 }
